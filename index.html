@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>福岡之旅 2026</title>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Leaflet CSS & JS (Open Source Maps) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+            background-color: #f3f4f6;
+            padding-bottom: 80px; /* Space for bottom nav */
+            overscroll-behavior-y: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Map Container */
+        #map-container {
+            height: calc(100vh - 160px);
+            width: 100%;
+            z-index: 1;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+    const { useState, useEffect, useRef, useMemo } = React;
+
+    // --- Data: Itinerary ---
+    const ITINERARY_DATA = [
+        {
+            dayId: 1,
+            date: "2026/01/02",
+            weekday: "週五",
+            title: "初賣熱潮與春吉之夜",
+            theme: "購物衝刺、摩滋鍋、天神探險",
+            locations: [
+                {
+                    id: 'd1-1',
+                    time: "12:50",
+                    endTime: "16:00",
+                    title: "航班：TPE - FUK",
+                    type: "flight",
+                    icon: "Plane",
+                    locationName: "福岡機場 (FUK)",
+                    lat: 33.5859, lng: 130.4507,
+                    description: "搭乘 AK1510，準備入境。",
+                    details: "航班號：AK1510\n出發：TPE 12:50\n抵達：FUK 16:00\n航廈：國際線航廈\n\n備註：入境審查請預留 1 小時。"
+                },
+                {
+                    id: 'd1-2',
+                    time: "17:30",
+                    title: "飯店 Check-in",
+                    type: "hotel",
+                    icon: "Hotel",
+                    locationName: "The BREAKFAST HOTEL 福岡天神",
+                    lat: 33.5890, lng: 130.4020,
+                    description: "快速整裝，準備出門血拼。",
+                    details: "飯店：The BREAKFAST HOTEL 福岡天神\n地址：福岡市中央區天神\n\n早餐攻略：以現打果昔、披薩聞名。建議1/4早上6:30一開門就去吃。"
+                },
+                {
+                    id: 'd1-3',
+                    time: "18:00",
+                    title: "天神「初賣」巡禮",
+                    type: "shopping",
+                    icon: "ShoppingBag",
+                    locationName: "天神地下街 / PARCO",
+                    lat: 33.5900, lng: 130.3980,
+                    description: "鎖定福袋與初賣折扣 (百貨約 20:00 打烊)。",
+                    details: "重點攻略：\n1. 天神地下街\n2. 福岡 PARCO\n3. 岩田屋\n\n提示：初賣日人潮眾多，看準目標直接下手。"
+                },
+                {
+                    id: 'd1-4',
+                    time: "20:00",
+                    title: "晚餐：元祖博多麺もつ屋",
+                    type: "food",
+                    icon: "Utensils",
+                    locationName: "Rakutenchi 天神西通店",
+                    lat: 33.5885, lng: 130.3995,
+                    description: "一人份牛雜鍋，堆成山的韭菜是靈魂。",
+                    details: "推薦菜單：一人份牛雜鍋 (Motsunabe)\n特色：蒜味湯頭濃郁，韭菜堆疊如山。\n建議：最後加點強棒麵做結尾。"
+                },
+                {
+                    id: 'd1-5',
+                    time: "21:30",
+                    title: "中洲/春吉散策",
+                    type: "sight",
+                    icon: "Moon",
+                    locationName: "春吉橋 / 那珂川",
+                    lat: 33.5915, lng: 130.4070,
+                    description: "欣賞那珂川夜景，感受屋台氣氛。",
+                    details: "路線：從飯店步行至春吉橋。\n活動：欣賞夜景，若有餘力可至中洲屋台街喝杯飲料（剛吃飽不建議點餐）。"
+                }
+            ]
+        },
+        {
+            dayId: 2,
+            date: "2026/01/03",
+            weekday: "週六",
+            title: "震撼祭典與大佛巡禮",
+            theme: "南藏院大佛、箱崎宮搶球祭",
+            locations: [
+                {
+                    id: 'd2-1',
+                    time: "09:00",
+                    title: "前往南藏院",
+                    type: "transport",
+                    icon: "Train",
+                    locationName: "城戶南藏院前站",
+                    lat: 33.6186, lng: 130.5630,
+                    description: "地鐵天神南 -> 博多 -> JR 篠栗線。",
+                    details: "交通方式：\n1. 步行至天神南站\n2. 搭七隈線至博多站\n3. 轉乘 JR 篠栗線至「城戶南藏院前」"
+                },
+                {
+                    id: 'd2-2',
+                    time: "10:00",
+                    title: "南藏院 釋迦涅槃像",
+                    type: "sight",
+                    icon: "Camera",
+                    locationName: "南藏院",
+                    lat: 33.6200, lng: 130.5650,
+                    description: "世界最大青銅涅槃像 (外國遊客入場費 300円)。",
+                    details: "重點：參拜釋迦涅槃像。\n注意：務必於 11:30 前離開以趕上箱崎宮祭典。"
+                },
+                {
+                    id: 'd2-3',
+                    time: "13:00",
+                    title: "箱崎宮「玉取祭」",
+                    type: "event",
+                    icon: "Flag",
+                    locationName: "箱崎宮",
+                    lat: 33.6145, lng: 130.4225,
+                    description: "九州三大祭典之一，搶奪陽球的熱血場面。",
+                    details: "午餐：祭典屋台 (炒麵、章魚燒)。\n看點：數百名男子爭奪木球，場面震撼。\n交通：JR吉塚站轉地鐵至「箱崎宮前」。"
+                },
+                {
+                    id: 'd2-4',
+                    time: "15:00",
+                    title: "櫛田神社 & 川端商店街",
+                    type: "sight",
+                    icon: "MapPin",
+                    locationName: "櫛田神社",
+                    lat: 33.5930, lng: 130.4105,
+                    description: "參拜博多總鎮守，吃川端善哉紅豆湯。",
+                    details: "位置：地鐵「中洲川端」站附近。\n必吃：川端善哉 (紅豆湯)。"
+                },
+                {
+                    id: 'd2-5',
+                    time: "18:00",
+                    title: "晚餐：華味鳥 水炊鍋",
+                    type: "food",
+                    icon: "Utensils",
+                    locationName: "博多水炊 華味鳥 天神店",
+                    lat: 33.5895, lng: 130.4000,
+                    description: "濃郁雞湯底，博多必吃水炊鍋。",
+                    details: "推薦：華味鳥套餐。\n特色：先喝湯，再吃肉，最後煮雜炊。"
+                }
+            ]
+        },
+        {
+            dayId: 3,
+            date: "2026/01/04",
+            weekday: "週日",
+            title: "系島與宗像 Bus Tour",
+            theme: "海景絕景、一蘭之森、光之大道",
+            locations: [
+                {
+                    id: 'd3-1',
+                    time: "07:45",
+                    title: "集合出發 (關鍵)",
+                    type: "alert",
+                    icon: "AlertCircle",
+                    locationName: "博多站築紫口",
+                    lat: 33.5905, lng: 130.4220,
+                    description: "建議搭計程車至博多站築紫口，08:20 集合。",
+                    details: "極度重要：團體行動不等人。\n集合點：博多站築紫口 Oriental Hotel/Lawson 前。\n建議：07:45 離開飯店，直接搭計程車避免迷路 (約 1500円)。"
+                },
+                {
+                    id: 'd3-2',
+                    time: "09:30",
+                    title: "白絲瀑布 & 夫婦岩",
+                    type: "sight",
+                    icon: "Camera",
+                    locationName: "櫻井二見浦夫婦岩",
+                    lat: 33.6420, lng: 130.1980,
+                    description: "系島地標白色鳥居，海風強請保暖。",
+                    details: "行程：\n1. 白絲瀑布 (吃烤山女魚)\n2. 櫻井二見浦夫婦岩 (拍照)\n3. 椰子樹鞦韆"
+                },
+                {
+                    id: 'd3-3',
+                    time: "12:40",
+                    title: "一蘭之森 (午餐)",
+                    type: "food",
+                    icon: "Utensils",
+                    locationName: "一蘭之森",
+                    lat: 33.5780, lng: 130.2150,
+                    description: "品嚐剛煮好的豚骨拉麵，參觀博物館。",
+                    details: "注意：新年期間工廠可能停工，但餐廳正常營業。若排隊太長建議吃麵包充飢，先逛博物館。"
+                },
+                {
+                    id: 'd3-4',
+                    time: "16:10",
+                    title: "宮地嶽神社",
+                    type: "sight",
+                    icon: "Sun",
+                    locationName: "宮地嶽神社",
+                    lat: 33.7800, lng: 130.4850,
+                    description: "著名的「光之大道」，參道直通大海。",
+                    details: "備註：宗像道之驛可能休館 (12/31-1/5)，行程可能調整。\n看點：光之大道夕陽絕景 (雖非正中但依然壯觀)。"
+                },
+                {
+                    id: 'd3-5',
+                    time: "19:30",
+                    title: "晚餐：博多站拉麵",
+                    type: "food",
+                    icon: "Utensils",
+                    locationName: "博多一雙 或 大地的烏龍麵",
+                    lat: 33.5898, lng: 130.4200,
+                    description: "返回博多站，享用濃郁豚骨或清爽烏龍麵。",
+                    details: "推薦：\n1. 博多一雙 (泡沫系豚骨)\n2. 大地的烏龍麵 (炸牛蒡烏龍麵)"
+                }
+            ]
+        },
+        {
+            dayId: 4,
+            date: "2026/01/05",
+            weekday: "週一",
+            title: "晨間散策與從容離境",
+            theme: "大濠公園、最後採購",
+            locations: [
+                {
+                    id: 'd4-1',
+                    time: "08:30",
+                    title: "大濠公園散步",
+                    type: "sight",
+                    icon: "Coffee",
+                    locationName: "大濠公園",
+                    lat: 33.5860, lng: 130.3765,
+                    description: "湖邊散步，Royal Garden Cafe 喝咖啡。",
+                    details: "交通：地鐵天神站 -> 大濠公園站。\n氣氛：享受福岡最後的悠閒早晨。"
+                },
+                {
+                    id: 'd4-2',
+                    time: "11:00",
+                    title: "最後採購 & 午餐",
+                    type: "shopping",
+                    icon: "ShoppingBag",
+                    locationName: "博多站 / 天神",
+                    lat: 33.5900, lng: 130.4206,
+                    description: "買明太子、福砂屋蛋糕。午餐吃牛舌。",
+                    details: "午餐推薦：博多站內 Tanal (牛舌) 或 博多麵街道。\n伴手禮：博多通饅頭、明太子。"
+                },
+                {
+                    id: 'd4-3',
+                    time: "14:20",
+                    title: "前往機場",
+                    type: "transport",
+                    icon: "Plane",
+                    locationName: "福岡機場 (FUK)",
+                    lat: 33.5859, lng: 130.4507,
+                    description: "搭計程車或地鐵前往。16:55 起飛。",
+                    details: "航班：AK1511 (FUK - TPE)\n時間：16:55 起飛 - 18:30 抵達\n提醒：預留時間逛機場免稅店。"
+                }
+            ]
+        }
+    ];
+
+    // --- Components ---
+
+    // 1. Icon Component
+    const Icon = ({ name, size = 20, className }) => {
+        useEffect(() => {
+            lucide.createIcons();
+        }, [name]);
+        return <i data-lucide={name} width={size} height={size} className={className}></i>;
+    };
+
+    const getIconName = (type) => {
+        switch(type) {
+            case 'flight': return 'plane';
+            case 'hotel': return 'bed-double';
+            case 'food': return 'utensils';
+            case 'shopping': return 'shopping-bag';
+            case 'sight': return 'camera';
+            case 'transport': return 'train-front';
+            case 'alert': return 'alert-circle';
+            case 'event': return 'flag';
+            default: return 'map-pin';
+        }
+    };
+
+    const getColorClass = (type) => {
+        switch(type) {
+            case 'flight': return 'bg-blue-100 text-blue-600';
+            case 'hotel': return 'bg-indigo-100 text-indigo-600';
+            case 'food': return 'bg-orange-100 text-orange-600';
+            case 'shopping': return 'bg-pink-100 text-pink-600';
+            case 'sight': return 'bg-green-100 text-green-600';
+            case 'alert': return 'bg-red-100 text-red-600';
+            default: return 'bg-gray-100 text-gray-600';
+        }
+    };
+
+    // 2. Map Component (Leaflet)
+    const MapView = ({ activeDay, data }) => {
+        const mapRef = useRef(null);
+        const mapInstanceRef = useRef(null);
+        const markersRef = useRef([]);
+
+        useEffect(() => {
+            if (!mapInstanceRef.current) {
+                mapInstanceRef.current = L.map('map-container').setView([33.5902, 130.4017], 13);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                    attribution: '&copy; OpenStreetMap & CartoDB'
+                }).addTo(mapInstanceRef.current);
+            }
+
+            // Clear existing markers
+            markersRef.current.forEach(marker => mapInstanceRef.current.removeLayer(marker));
+            markersRef.current = [];
+
+            let points = [];
+            
+            const daysToShow = activeDay === 'all' ? data : [data[activeDay]];
+
+            daysToShow.forEach((day, dayIndex) => {
+                day.locations.forEach((loc, locIndex) => {
+                    const markerColor = dayIndex === 0 ? 'blue' : dayIndex === 1 ? 'green' : dayIndex === 2 ? 'red' : 'orange';
+                    
+                    // Simple custom icon
+                    const myIcon = L.divIcon({
+                        className: 'custom-div-icon',
+                        html: `<div style="background-color: ${locIndex === 0 ? '#000' : '#4F46E5'}; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">${locIndex + 1}</div>`,
+                        iconSize: [24, 24],
+                        iconAnchor: [12, 12]
+                    });
+
+                    const marker = L.marker([loc.lat, loc.lng], { icon: myIcon })
+                        .addTo(mapInstanceRef.current)
+                        .bindPopup(`<b>D${day.dayId} - ${loc.time}</b><br>${loc.title}`);
+                    
+                    markersRef.current.push(marker);
+                    points.push([loc.lat, loc.lng]);
+                });
+            });
+
+            if (points.length > 0) {
+                const bounds = L.latLngBounds(points);
+                mapInstanceRef.current.fitBounds(bounds, { padding: [50, 50] });
+            }
+
+            // Fix map sizing issues
+            setTimeout(() => {
+                mapInstanceRef.current.invalidateSize();
+            }, 100);
+
+        }, [activeDay, data]);
+
+        return <div id="map-container" className="rounded-xl overflow-hidden shadow-inner"></div>;
+    };
+
+    // 3. Hero Section (Forecast + Currency)
+    const HeroSection = ({ activeDayIndex, itineraryData }) => {
+        const [expanded, setExpanded] = useState(true);
+        const [forecast, setForecast] = useState(null);
+        const [jpyRate, setJpyRate] = useState(0.22); // Default fallback
+        const [amount, setAmount] = useState('');
+        const [converted, setConverted] = useState(null);
+        const [rateDate, setRateDate] = useState('');
+
+        useEffect(() => {
+            // Fetch Daily Forecast (Fukuoka)
+            // We get 7 days. We will map index 0 to Day 1, index 1 to Day 2, etc.
+            fetch('https://api.open-meteo.com/v1/forecast?latitude=33.5902&longitude=130.4017&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo')
+                .then(res => res.json())
+                .then(data => setForecast(data.daily))
+                .catch(err => console.error("Weather fetch failed", err));
+
+            // Fetch Currency
+            fetch('https://api.exchangerate-api.com/v4/latest/JPY')
+                .then(res => res.json())
+                .then(data => {
+                    if(data.rates.TWD) {
+                        setJpyRate(data.rates.TWD);
+                        setRateDate(data.date);
+                    }
+                })
+                .catch(err => console.error("Rate fetch failed", err));
+        }, []);
+
+        const handleConvert = () => {
+            if(!amount) return;
+            setConverted((parseFloat(amount) * jpyRate).toFixed(0));
+        };
+
+        const getWeatherDescription = (code) => {
+            if (code === 0) return '晴朗';
+            if (code <= 3) return '多雲';
+            if (code <= 48) return '有霧';
+            if (code <= 67) return '有雨';
+            if (code <= 77) return '降雪';
+            if (code <= 82) return '陣雨';
+            return '陰雨';
+        };
+
+        // Determine which forecast day to show
+        // If activeDayIndex is 'all', default to 0. Otherwise use the index.
+        const currentDayIdx = typeof activeDayIndex === 'number' ? activeDayIndex : 0;
+        
+        // Safety check if forecast data is ready
+        const todayForecast = forecast ? {
+            max: forecast.temperature_2m_max[currentDayIdx],
+            min: forecast.temperature_2m_min[currentDayIdx],
+            code: forecast.weathercode[currentDayIdx],
+            desc: getWeatherDescription(forecast.weathercode[currentDayIdx])
+        } : null;
+
+        // Display Date Logic
+        const displayDate = typeof activeDayIndex === 'number' 
+            ? itineraryData[activeDayIndex].date.slice(5) // "01/02"
+            : "全程總覽";
+        
+        const displayLocation = typeof activeDayIndex === 'number' 
+             ? "福岡市" 
+             : "福岡縣";
+
+        // If collapsed (minimized)
+        if (!expanded) {
+            return (
+                <div 
+                    onClick={() => setExpanded(true)}
+                    className="bg-indigo-600 text-white shadow-lg transition-all duration-300 cursor-pointer overflow-hidden"
+                >
+                    <div className="px-4 py-3 flex justify-between items-center">
+                        <div className="flex items-center gap-2 text-sm">
+                            <Icon name="map-pin" size={14} className="text-blue-200"/>
+                            <span>{displayLocation}</span>
+                            <span className="opacity-50">|</span>
+                            <span>{displayDate}</span>
+                            {todayForecast && (
+                                <>
+                                    <span className="opacity-50">|</span>
+                                    <Icon name={todayForecast.code > 50 ? "cloud-rain" : "sun"} size={14} className="text-yellow-300"/>
+                                    <span>{todayForecast.min}° - {todayForecast.max}°C</span>
+                                </>
+                            )}
+                        </div>
+                        <Icon name="chevron-down" size={18} className="text-blue-200" />
+                    </div>
+                </div>
+            );
+        }
+
+        // Expanded view
+        return (
+            <div className="bg-gradient-to-br from-indigo-600 to-blue-500 text-white rounded-b-3xl shadow-lg transition-all duration-300 overflow-hidden relative">
+                 <div className="absolute top-0 right-0 p-4 opacity-10">
+                    <Icon name="map" size={120} />
+                 </div>
+                 
+                 <div className="p-6 pb-2">
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <p className="text-blue-100 text-sm font-medium">{displayLocation}, 日本</p>
+                            <h1 className="text-3xl font-bold mt-1">
+                                {displayDate}
+                                {typeof activeDayIndex === 'number' && <span className="text-lg font-normal opacity-80 ml-2">{itineraryData[activeDayIndex].weekday}</span>}
+                            </h1>
+                            <div className="flex items-center mt-2 space-x-2">
+                                {todayForecast ? (
+                                    <>
+                                        <div className="flex flex-col">
+                                            <span className="text-3xl font-light leading-none">{todayForecast.max}°</span>
+                                            <span className="text-sm opacity-70">最高</span>
+                                        </div>
+                                        <div className="h-8 w-[1px] bg-white/30 mx-1"></div>
+                                        <div className="flex flex-col">
+                                            <span className="text-xl font-light leading-none opacity-90">{todayForecast.min}°</span>
+                                            <span className="text-sm opacity-70">最低</span>
+                                        </div>
+                                        
+                                        <span className="ml-2 text-sm bg-white/20 px-3 py-1 rounded-full flex items-center gap-1">
+                                            <Icon name={todayForecast.code > 50 ? "cloud-rain" : todayForecast.code <= 3 ? "sun" : "cloud"} size={14} />
+                                            {todayForecast.desc}
+                                        </span>
+                                    </>
+                                ) : (
+                                    <span className="text-sm animate-pulse">載入當地預報中...</span>
+                                )}
+                            </div>
+                        </div>
+                        <button onClick={() => setExpanded(false)} className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+                            <Icon name="chevron-up" size={20} />
+                        </button>
+                    </div>
+                 </div>
+
+                 <div className="px-6 pb-6">
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 mt-2">
+                        <div className="flex justify-between items-center mb-2">
+                            <span className="text-sm text-blue-100 flex items-center gap-1">
+                                <Icon name="coins" size={14} /> 即時匯率
+                            </span>
+                            <span className="text-xs text-blue-200">更新: {rateDate}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <div className="flex-1 relative">
+                                <span className="absolute left-3 top-2.5 text-gray-500 text-sm">¥</span>
+                                <input 
+                                    type="number" 
+                                    placeholder="日幣" 
+                                    value={amount}
+                                    onChange={(e) => setAmount(e.target.value)}
+                                    className="w-full pl-7 pr-3 py-2 rounded-lg text-gray-800 text-sm focus:outline-none"
+                                />
+                            </div>
+                            <Icon name="arrow-right" size={16} className="text-white/70" />
+                            <div className="flex-1 bg-white/20 rounded-lg py-2 px-3 text-center cursor-pointer active:scale-95 transition" onClick={handleConvert}>
+                                {converted ? (
+                                    <span className="font-bold">NT$ {converted}</span>
+                                ) : (
+                                    <span className="text-sm text-blue-100">點擊換算</span>
+                                )}
+                            </div>
+                        </div>
+                        <div className="text-center text-xs text-blue-200 mt-2">
+                            1 JPY ≈ {jpyRate} TWD
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        );
+    };
+
+    // 4. Modal
+    const Modal = ({ isOpen, onClose, data }) => {
+        if (!isOpen || !data) return null;
+
+        return (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose}></div>
+                <div className="bg-white rounded-2xl w-full max-w-md max-h-[80vh] overflow-y-auto z-10 animate-[fadeIn_0.2s_ease-out]">
+                    <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+                        <h3 className="font-bold text-lg text-gray-800 truncate pr-4">{data.title}</h3>
+                        <button onClick={onClose} className="p-1 bg-gray-100 rounded-full">
+                            <Icon name="x" size={20} className="text-gray-600" />
+                        </button>
+                    </div>
+                    <div className="p-5">
+                        <div className={`w-12 h-12 ${getColorClass(data.type)} rounded-full flex items-center justify-center mb-4`}>
+                            <Icon name={getIconName(data.type)} size={24} />
+                        </div>
+                        <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">詳細資訊</h4>
+                        <div className="text-gray-800 whitespace-pre-line leading-relaxed text-sm bg-gray-50 p-4 rounded-lg">
+                            {data.details}
+                        </div>
+
+                        {data.locationName && (
+                            <div className="mt-6">
+                                <a 
+                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.locationName)}`}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="flex items-center justify-center gap-2 w-full py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition"
+                                >
+                                    <Icon name="map-pin" size={18} />
+                                    開啟 Google Maps
+                                </a>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    // 5. Tips Modal
+    const TipsModal = ({ isOpen, onClose }) => {
+        if (!isOpen) return null;
+        return (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose}></div>
+                <div className="bg-white rounded-2xl w-full max-w-md max-h-[80vh] overflow-y-auto z-10">
+                    <div className="p-6">
+                        <div className="flex justify-between items-center mb-4">
+                            <h2 className="text-xl font-bold text-gray-800">🇹🇼 台灣人遊福岡注意事項</h2>
+                            <button onClick={onClose}><Icon name="x" size={24} /></button>
+                        </div>
+                        <ul className="space-y-4 text-sm text-gray-700">
+                            <li className="flex gap-3">
+                                <span className="text-xl">🚌</span>
+                                <span><strong>公車後門上車：</strong>福岡西鐵巴士多為後門上車（抽整理券或刷 IC 卡），前門下車付款。</span>
+                            </li>
+                            <li className="flex gap-3">
+                                <span className="text-xl">🚮</span>
+                                <span><strong>垃圾不落地：</strong>路邊垃圾桶極少，請自備塑膠袋將垃圾帶回飯店或便利商店丟棄。</span>
+                            </li>
+                            <li className="flex gap-3">
+                                <span className="text-xl">🗣️</span>
+                                <span><strong>說話輕聲：</strong>在電車、公車內請保持安靜，將手機設為靜音。</span>
+                            </li>
+                            <li className="flex gap-3">
+                                <span className="text-xl">🍜</span>
+                                <span><strong>屋台潛規則：</strong>每人至少點一杯飲料，沒廁所，不要久坐佔位，天氣冷要注意保暖。</span>
+                            </li>
+                            <li className="flex gap-3">
+                                <span className="text-xl">🛍️</span>
+                                <span><strong>新年營業時間：</strong>1/2-1/4 很多店鋪營業時間會調整，建議先查好官網。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // --- Main App Component ---
+    const App = () => {
+        const [activeDayIndex, setActiveDayIndex] = useState(0); // 0-3
+        const [viewMode, setViewMode] = useState('timeline'); // 'timeline' or 'map'
+        const [modalData, setModalData] = useState(null);
+        const [showTips, setShowTips] = useState(false);
+        const contentRef = useRef(null);
+
+        // Force icon refresh
+        useEffect(() => {
+            lucide.createIcons();
+        }, [activeDayIndex, viewMode, modalData]);
+
+        // Scroll to top when changing day
+        useEffect(() => {
+            if(contentRef.current && viewMode === 'timeline') {
+                contentRef.current.scrollTop = 0;
+            }
+            window.scrollTo(0,0);
+        }, [activeDayIndex]);
+
+        const currentDayData = ITINERARY_DATA[activeDayIndex];
+
+        return (
+            <div className="min-h-screen pb-24">
+                {/* Header & Hero */}
+                <div className="sticky top-0 z-30 bg-indigo-600">
+                    <div className="flex justify-between items-center px-4 py-3">
+                        <span className="text-white font-bold text-lg tracking-wider">FUKUOKA 26'</span>
+                        <button 
+                            onClick={() => setShowTips(true)}
+                            className="bg-white/20 text-white text-xs px-3 py-1.5 rounded-full flex items-center gap-1 hover:bg-white/30 transition"
+                        >
+                            <Icon name="info" size={14} /> 旅遊須知
+                        </button>
+                    </div>
+                </div>
+                
+                <HeroSection activeDayIndex={activeDayIndex} itineraryData={ITINERARY_DATA} />
+
+                {/* Day Switcher */}
+                <div className="flex overflow-x-auto hide-scrollbar gap-3 p-4 sticky top-12 z-20 bg-[#f3f4f6]/95 backdrop-blur">
+                    {ITINERARY_DATA.map((day, idx) => (
+                        <button
+                            key={day.dayId}
+                            onClick={() => { setActiveDayIndex(idx); setViewMode('timeline'); }}
+                            className={`flex-shrink-0 px-4 py-2 rounded-xl flex flex-col items-center min-w-[80px] transition-all border ${
+                                activeDayIndex === idx && viewMode === 'timeline'
+                                    ? 'bg-indigo-600 text-white border-indigo-600 shadow-lg scale-105' 
+                                    : 'bg-white text-gray-500 border-gray-200'
+                            }`}
+                        >
+                            <span className="text-xs opacity-80">{day.date.slice(5)}</span>
+                            <span className="font-bold text-sm">Day {day.dayId}</span>
+                        </button>
+                    ))}
+                </div>
+
+                {/* Content Area */}
+                <div className="px-4 animate-[fadeIn_0.3s_ease-out]" ref={contentRef}>
+                    
+                    {viewMode === 'timeline' ? (
+                        <>
+                            {/* Day Header */}
+                            <div className="mb-6 mt-2">
+                                <h2 className="text-2xl font-bold text-gray-800">{currentDayData.title}</h2>
+                                <p className="text-gray-500 text-sm mt-1 flex items-center gap-1">
+                                    <Icon name="tag" size={14} /> {currentDayData.theme}
+                                </p>
+                            </div>
+
+                            {/* Timeline */}
+                            <div className="relative pl-4 border-l-2 border-indigo-200 space-y-8">
+                                {currentDayData.locations.map((item, idx) => (
+                                    <div key={item.id} className="relative group">
+                                        {/* Dot */}
+                                        <div className={`absolute -left-[21px] top-4 w-4 h-4 rounded-full border-2 border-white shadow-sm ${getColorClass(item.type).split(' ')[0].replace('bg-', 'bg-')}`}></div>
+                                        
+                                        {/* Card */}
+                                        <div 
+                                            className="bg-white rounded-2xl p-4 card-shadow active:scale-[0.98] transition-transform duration-200 cursor-pointer"
+                                            onClick={() => setModalData(item)}
+                                        >
+                                            <div className="flex justify-between items-start mb-2">
+                                                <span className="font-mono text-indigo-600 font-bold text-sm bg-indigo-50 px-2 py-1 rounded-md">
+                                                    {item.time}
+                                                </span>
+                                                <div className={`p-2 rounded-full ${getColorClass(item.type)}`}>
+                                                    <Icon name={getIconName(item.type)} size={18} />
+                                                </div>
+                                            </div>
+                                            
+                                            <h3 className="font-bold text-gray-800 text-lg mb-1">{item.title}</h3>
+                                            
+                                            <div className="flex items-center gap-1 text-gray-500 text-xs mb-3">
+                                                <Icon name="map-pin" size={12} />
+                                                <span className="truncate max-w-[200px]">{item.locationName}</span>
+                                            </div>
+
+                                            <p className="text-gray-600 text-sm leading-snug">
+                                                {item.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            
+                            {/* Prev/Next Navigation */}
+                            <div className="flex justify-between items-center mt-10 mb-6 px-1">
+                                <button
+                                    disabled={activeDayIndex === 0}
+                                    onClick={() => setActiveDayIndex(curr => curr - 1)}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${activeDayIndex === 0 ? 'opacity-0 cursor-default' : 'bg-white text-indigo-600 shadow-sm hover:bg-indigo-50 active:scale-95'}`}
+                                >
+                                    <Icon name="arrow-left" size={16} /> 上一天
+                                </button>
+                                
+                                <button
+                                    disabled={activeDayIndex === ITINERARY_DATA.length - 1}
+                                    onClick={() => setActiveDayIndex(curr => curr + 1)}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${activeDayIndex === ITINERARY_DATA.length - 1 ? 'opacity-0 cursor-default' : 'bg-indigo-600 text-white shadow-md hover:bg-indigo-700 active:scale-95'}`}
+                                >
+                                    下一天 <Icon name="arrow-right" size={16} />
+                                </button>
+                            </div>
+
+                            {/* End of day */}
+                            <div className="text-center pb-8 text-gray-400 text-sm">
+                                💤 Day {currentDayData.dayId} 結束
+                            </div>
+                        </>
+                    ) : (
+                        <div className="mt-2">
+                            <h2 className="text-xl font-bold text-gray-800 mb-4 px-2">
+                                {activeDayIndex === 'all' ? '全程地圖' : `Day ${activeDayIndex + 1} 路線圖`}
+                            </h2>
+                            <MapView activeDay={activeDayIndex} data={ITINERARY_DATA} />
+                            <div className="mt-4 p-4 bg-white rounded-xl text-sm text-gray-600 shadow-sm">
+                                <p className="flex items-center gap-2 mb-2"><span className="w-3 h-3 rounded-full bg-blue-600"></span> Day 1</p>
+                                <p className="flex items-center gap-2 mb-2"><span className="w-3 h-3 rounded-full bg-green-600"></span> Day 2</p>
+                                <p className="flex items-center gap-2 mb-2"><span className="w-3 h-3 rounded-full bg-red-600"></span> Day 3</p>
+                                <p className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-orange-600"></span> Day 4</p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Bottom Navigation */}
+                <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3 flex justify-between items-center z-40 safe-area-pb">
+                    <button 
+                        onClick={() => setViewMode('timeline')}
+                        className={`flex flex-col items-center gap-1 transition ${viewMode === 'timeline' ? 'text-indigo-600' : 'text-gray-400'}`}
+                    >
+                        <Icon name="list" size={24} />
+                        <span className="text-[10px] font-medium">行程表</span>
+                    </button>
+
+                    <div 
+                        className="w-12 h-12 bg-indigo-600 rounded-full -mt-8 flex items-center justify-center shadow-lg shadow-indigo-300 text-white cursor-pointer hover:bg-indigo-700 transition"
+                        onClick={() => {
+                            if(viewMode === 'map' && activeDayIndex === 'all') {
+                                setViewMode('timeline');
+                                setActiveDayIndex(0);
+                            } else {
+                                setViewMode('map');
+                                setActiveDayIndex('all');
+                            }
+                        }}
+                    >
+                        <Icon name="map" size={24} />
+                    </div>
+
+                    <button 
+                        onClick={() => { setViewMode('map'); if(activeDayIndex === 'all') setActiveDayIndex(0); }}
+                        className={`flex flex-col items-center gap-1 transition ${viewMode === 'map' && activeDayIndex !== 'all' ? 'text-indigo-600' : 'text-gray-400'}`}
+                    >
+                        <Icon name="map-pin" size={24} />
+                        <span className="text-[10px] font-medium">當日地圖</span>
+                    </button>
+                </div>
+
+                {/* Modals */}
+                <Modal isOpen={!!modalData} onClose={() => setModalData(null)} data={modalData} />
+                <TipsModal isOpen={showTips} onClose={() => setShowTips(false)} />
+
+            </div>
+        );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+
+</script>
+
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .safe-area-pb {
+        padding-bottom: env(safe-area-inset-bottom, 20px);
+    }
+</style>
+
+</body>
+</html>
