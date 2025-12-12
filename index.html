@@ -26,7 +26,7 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
             background-color: #f3f4f6;
-            padding-bottom: 80px; /* Space for bottom nav */
+            padding-bottom: 90px; /* Space for bottom nav */
             overscroll-behavior-y: none;
         }
         .hide-scrollbar::-webkit-scrollbar {
@@ -38,12 +38,19 @@
         }
         /* Map Container */
         #map-container {
-            height: calc(100vh - 160px);
+            height: 50vh; /* Adjusted to allow list below */
             width: 100%;
             z-index: 1;
         }
         .card-shadow {
             box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.1);
+        }
+        .nav-item-active {
+            color: #4F46E5;
+            font-weight: 600;
+        }
+        .nav-item-inactive {
+            color: #9CA3AF;
         }
     </style>
 </head>
@@ -61,64 +68,80 @@
             dayId: 1,
             date: "2026/01/02",
             weekday: "週五",
-            title: "初賣熱潮與春吉之夜",
-            theme: "購物衝刺、摩滋鍋、天神探險",
+            title: "初賣衝刺與韭菜山洗禮",
+            theme: "抵達、百貨福袋、博多靈魂美食",
             locations: [
                 {
                     id: 'd1-1',
-                    time: "12:50",
-                    endTime: "16:00",
-                    title: "航班：TPE - FUK",
-                    type: "flight",
+                    time: "16:00",
+                    title: "抵達福岡機場 (FUK)",
+                    type: "transport",
                     icon: "Plane",
-                    locationName: "福岡機場 (FUK)",
+                    locationName: "福岡機場國際線航廈",
+                    imageKeyword: "Fukuoka Airport",
                     lat: 33.5859, lng: 130.4507,
-                    description: "搭乘 AK1510，準備入境。",
-                    details: "航班號：AK1510\n出發：TPE 12:50\n抵達：FUK 16:00\n航廈：國際線航廈\n\n備註：入境審查請預留 1 小時。"
+                    description: "出關後，直接前往國際線計程車搭乘處。",
+                    details: "航班：AK1510 (16:00 抵達)\n\n行動：出關後直奔計程車乘車處。1月2日人潮較多，請預留通關時間。"
                 },
                 {
                     id: 'd1-2',
-                    time: "17:30",
+                    time: "17:00",
+                    title: "搭計程車前往飯店",
+                    type: "transport",
+                    icon: "Car",
+                    locationName: "The BREAKFAST HOTEL 福岡天神",
+                    imageKeyword: "Japan Taxi",
+                    lat: 33.5890, lng: 130.4020,
+                    description: "省去拖行李轉車麻煩，車資約 2,000-2,500 円。",
+                    details: "目的地：The BREAKFAST HOTEL Fukuoka Tenjin (位於春吉)。\n車資預估：約 2,000 - 2,500 日圓。"
+                },
+                {
+                    id: 'd1-3',
+                    time: "17:40",
                     title: "飯店 Check-in",
                     type: "hotel",
                     icon: "Hotel",
                     locationName: "The BREAKFAST HOTEL 福岡天神",
+                    imageKeyword: "Hotel Reception",
                     lat: 33.5890, lng: 130.4020,
-                    description: "快速整裝，準備出門血拼。",
-                    details: "飯店：The BREAKFAST HOTEL 福岡天神\n地址：福岡市中央區天神\n\n早餐攻略：以現打果昔、披薩聞名。建議1/4早上6:30一開門就去吃。"
+                    description: "快速辦理入住，輕裝出門。",
+                    details: "飯店：The BREAKFAST HOTEL Fukuoka Tenjin\n位置：春吉/天神南，交通與夜生活極便利。"
                 },
                 {
-                    id: 'd1-3',
+                    id: 'd1-4',
                     time: "18:00",
                     title: "天神「初賣」巡禮",
                     type: "shopping",
                     icon: "ShoppingBag",
                     locationName: "天神地下街 / PARCO",
+                    imageKeyword: "Tenjin Shopping",
                     lat: 33.5900, lng: 130.3980,
-                    description: "鎖定福袋與初賣折扣 (百貨約 20:00 打烊)。",
-                    details: "重點攻略：\n1. 天神地下街\n2. 福岡 PARCO\n3. 岩田屋\n\n提示：初賣日人潮眾多，看準目標直接下手。"
-                },
-                {
-                    id: 'd1-4',
-                    time: "20:00",
-                    title: "晚餐：元祖博多麺もつ屋",
-                    type: "food",
-                    icon: "Utensils",
-                    locationName: "Rakutenchi 天神西通店",
-                    lat: 33.5885, lng: 130.3995,
-                    description: "一人份牛雜鍋，堆成山的韭菜是靈魂。",
-                    details: "推薦菜單：一人份牛雜鍋 (Motsunabe)\n特色：蒜味湯頭濃郁，韭菜堆疊如山。\n建議：最後加點強棒麵做結尾。"
+                    description: "感受日本過年購物熱氣，服飾折扣殺。",
+                    details: "地點：步行至天神地下街、福岡 PARCO 或 岩田屋。\n亮點：1月2日是百貨折扣第一天，雖然福袋可能搶光，但服飾折扣非常好買。"
                 },
                 {
                     id: 'd1-5',
+                    time: "20:00",
+                    title: "晚餐：元祖牛腸鍋 樂天地",
+                    type: "food",
+                    icon: "Utensils",
+                    locationName: "元祖もつ鍋 楽天地 天神西通り店",
+                    imageKeyword: "Motsunabe",
+                    lat: 33.5878, lng: 130.3985,
+                    description: "堆得像山的韭菜，消除首日疲勞。",
+                    details: "Tabelog：3.58\n獨旅亮點：韭菜山視覺震撼，蒜味濃郁湯底。建議事先預約。\n位置：天神西通店。"
+                },
+                {
+                    id: 'd1-6',
                     time: "21:30",
-                    title: "中洲/春吉散策",
+                    title: "春吉/中洲散策",
                     type: "sight",
                     icon: "Moon",
-                    locationName: "春吉橋 / 那珂川",
+                    locationName: "春吉橋",
+                    imageKeyword: "Nakasu Neon",
                     lat: 33.5915, lng: 130.4070,
-                    description: "欣賞那珂川夜景，感受屋台氣氛。",
-                    details: "路線：從飯店步行至春吉橋。\n活動：欣賞夜景，若有餘力可至中洲屋台街喝杯飲料（剛吃飽不建議點餐）。"
+                    description: "欣賞那珂川夜景與霓虹倒影。",
+                    details: "路線：飯店所在的春吉區很有情調，步行至春吉橋看夜景。"
                 }
             ]
         },
@@ -126,63 +149,104 @@
             dayId: 2,
             date: "2026/01/03",
             weekday: "週六",
-            title: "震撼祭典與大佛巡禮",
-            theme: "南藏院大佛、箱崎宮搶球祭",
+            title: "震撼大佛與祭典熱血",
+            theme: "南藏院參拜、玉取祭、高雅水炊鍋",
             locations: [
                 {
                     id: 'd2-1',
                     time: "09:00",
-                    title: "前往南藏院",
+                    title: "出發前往南藏院",
                     type: "transport",
                     icon: "Train",
                     locationName: "城戶南藏院前站",
+                    imageKeyword: "Japan Train Station",
                     lat: 33.6186, lng: 130.5630,
-                    description: "地鐵天神南 -> 博多 -> JR 篠栗線。",
-                    details: "交通方式：\n1. 步行至天神南站\n2. 搭七隈線至博多站\n3. 轉乘 JR 篠栗線至「城戶南藏院前」"
+                    description: "天神南 -> 博多 -> JR 篠栗線。",
+                    details: "交通：步行至地鐵「天神南站」→ 搭到「博多站」→ 轉乘 JR 篠栗線 → 抵達「城戶南藏院前」。"
                 },
                 {
                     id: 'd2-2',
                     time: "10:00",
-                    title: "南藏院 釋迦涅槃像",
+                    title: "參拜：南藏院 (Nanzoin)",
                     type: "sight",
                     icon: "Camera",
                     locationName: "南藏院",
+                    imageKeyword: "Nanzoin Buddha Reclining",
                     lat: 33.6200, lng: 130.5650,
-                    description: "世界最大青銅涅槃像 (外國遊客入場費 300円)。",
-                    details: "重點：參拜釋迦涅槃像。\n注意：務必於 11:30 前離開以趕上箱崎宮祭典。"
+                    description: "全球最大青銅釋迦涅槃像。",
+                    details: "亮點：視覺震撼。請準備 300 日圓現金作為外國遊客參觀費。"
                 },
                 {
                     id: 'd2-3',
-                    time: "13:00",
-                    title: "箱崎宮「玉取祭」",
-                    type: "event",
-                    icon: "Flag",
-                    locationName: "箱崎宮",
+                    time: "12:00",
+                    title: "移動至箱崎宮",
+                    type: "transport",
+                    icon: "Train",
+                    locationName: "箱崎宮前站",
+                    imageKeyword: "Subway Japan",
                     lat: 33.6145, lng: 130.4225,
-                    description: "九州三大祭典之一，搶奪陽球的熱血場面。",
-                    details: "午餐：祭典屋台 (炒麵、章魚燒)。\n看點：數百名男子爭奪木球，場面震撼。\n交通：JR吉塚站轉地鐵至「箱崎宮前」。"
+                    description: "JR 吉塚/博多轉地鐵至箱崎宮前。",
+                    details: "交通：搭 JR 返回「吉塚站」或「博多站」，轉地鐵/JR 至「箱崎宮前」。"
                 },
                 {
                     id: 'd2-4',
-                    time: "15:00",
-                    title: "櫛田神社 & 川端商店街",
-                    type: "sight",
-                    icon: "MapPin",
-                    locationName: "櫛田神社",
-                    lat: 33.5930, lng: 130.4105,
-                    description: "參拜博多總鎮守，吃川端善哉紅豆湯。",
-                    details: "位置：地鐵「中洲川端」站附近。\n必吃：川端善哉 (紅豆湯)。"
+                    time: "12:30",
+                    title: "午餐：祭典屋台 (Yatai)",
+                    type: "food",
+                    icon: "Utensils",
+                    locationName: "箱崎宮參道",
+                    imageKeyword: "Yatai Food",
+                    lat: 33.6145, lng: 130.4225,
+                    description: "參道上吃炒麵、章魚燒。",
+                    details: "體驗：最道地的日本祭典氣氛，隨意在攤販解決午餐。"
                 },
                 {
                     id: 'd2-5',
-                    time: "18:00",
-                    title: "晚餐：華味鳥 水炊鍋",
+                    time: "13:00",
+                    title: "觀賞：箱崎宮「玉取祭」",
+                    type: "event",
+                    icon: "Flag",
+                    locationName: "箱崎宮",
+                    imageKeyword: "Tamaseseri Festival",
+                    lat: 33.6145, lng: 130.4225,
+                    description: "九州三大祭典之一，壯丁搶球。",
+                    details: "亮點：場面陽剛熱血，建議在樓門附近卡位。"
+                },
+                {
+                    id: 'd2-6',
+                    time: "15:30",
+                    title: "櫛田神社 & 川端通",
+                    type: "sight",
+                    icon: "MapPin",
+                    locationName: "櫛田神社",
+                    imageKeyword: "Kushida Shrine",
+                    lat: 33.5930, lng: 130.4105,
+                    description: "參拜博多總鎮守，吃紅豆湯。",
+                    details: "交通：搭地鐵至「中洲川端」。\n美食：商店街必吃「川端善哉」(熱紅豆湯)。"
+                },
+                {
+                    id: 'd2-7',
+                    time: "18:30",
+                    title: "晚餐：博多水炊 濱田屋",
                     type: "food",
                     icon: "Utensils",
-                    locationName: "博多水炊 華味鳥 天神店",
-                    lat: 33.5895, lng: 130.4000,
-                    description: "濃郁雞湯底，博多必吃水炊鍋。",
-                    details: "推薦：華味鳥套餐。\n特色：先喝湯，再吃肉，最後煮雜炊。"
+                    locationName: "博多水炊き 濱田屋 くうてん",
+                    imageKeyword: "Mizutaki Pot",
+                    lat: 33.5898, lng: 130.4207,
+                    description: "JR博多城10樓，單人水炊鍋御膳。",
+                    details: "位置：JR博多城 10樓。\n獨旅亮點：提供極少見的「單人水炊鍋御膳」，環境優雅，湯頭充滿膠原蛋白。"
+                },
+                {
+                    id: 'd2-8',
+                    time: "20:30",
+                    title: "返回天神",
+                    type: "transport",
+                    icon: "Moon",
+                    locationName: "天神南",
+                    imageKeyword: "Fukuoka Street Night",
+                    lat: 33.5890, lng: 130.4020,
+                    description: "搭地鐵或計程車回飯店休息。",
+                    details: "結束充實的一天，返回飯店。"
                 }
             ]
         },
@@ -190,63 +254,80 @@
             dayId: 3,
             date: "2026/01/04",
             weekday: "週日",
-            title: "系島與宗像 Bus Tour",
-            theme: "海景絕景、一蘭之森、光之大道",
+            title: "糸島絕景與豚骨狂熱",
+            theme: "巴士一日遊、龍貓森林、泡沫系拉麵",
             locations: [
                 {
                     id: 'd3-1',
-                    time: "07:45",
-                    title: "集合出發 (關鍵)",
-                    type: "alert",
-                    icon: "AlertCircle",
-                    locationName: "博多站築紫口",
-                    lat: 33.5905, lng: 130.4220,
-                    description: "建議搭計程車至博多站築紫口，08:20 集合。",
-                    details: "極度重要：團體行動不等人。\n集合點：博多站築紫口 Oriental Hotel/Lawson 前。\n建議：07:45 離開飯店，直接搭計程車避免迷路 (約 1500円)。"
+                    time: "07:40",
+                    title: "飯店出發",
+                    type: "transport",
+                    icon: "Car",
+                    locationName: "The BREAKFAST HOTEL 福岡天神",
+                    imageKeyword: "Morning Taxi",
+                    lat: 33.5890, lng: 130.4020,
+                    description: "搭計程車至博多站筑紫口 (約1200円)。",
+                    details: "早餐：建議先在超商買好飯糰。\n交通：搭計程車前往博多站筑紫口集合。"
                 },
                 {
                     id: 'd3-2',
-                    time: "09:30",
-                    title: "白絲瀑布 & 夫婦岩",
-                    type: "sight",
-                    icon: "Camera",
-                    locationName: "櫻井二見浦夫婦岩",
-                    lat: 33.6420, lng: 130.1980,
-                    description: "系島地標白色鳥居，海風強請保暖。",
-                    details: "行程：\n1. 白絲瀑布 (吃烤山女魚)\n2. 櫻井二見浦夫婦岩 (拍照)\n3. 椰子樹鞦韆"
+                    time: "08:20",
+                    title: "集合 (務必準時)",
+                    type: "alert",
+                    icon: "Users",
+                    locationName: "博多站筑紫口 LAWSON",
+                    imageKeyword: "Hakata Station Chikushi",
+                    lat: 33.5905, lng: 130.4220,
+                    description: "筑紫口 Oriental Hotel 一樓 LAWSON 前。",
+                    details: "識別：尋找 Klook/EasyGo 旗幟的導遊。"
                 },
                 {
                     id: 'd3-3',
-                    time: "12:40",
-                    title: "一蘭之森 (午餐)",
-                    type: "food",
-                    icon: "Utensils",
-                    locationName: "一蘭之森",
-                    lat: 33.5780, lng: 130.2150,
-                    description: "品嚐剛煮好的豚骨拉麵，參觀博物館。",
-                    details: "注意：新年期間工廠可能停工，但餐廳正常營業。若排隊太長建議吃麵包充飢，先逛博物館。"
+                    time: "08:30",
+                    title: "糸島巴士一日遊",
+                    type: "bus",
+                    icon: "Bus",
+                    locationName: "糸島",
+                    imageKeyword: "Futamigaura Torii",
+                    lat: 33.6420, lng: 130.1980,
+                    description: "櫻井二見浦、龍貓森林、白絲瀑布。",
+                    details: "行程亮點：\n1. 櫻井二見浦夫婦岩\n2. 芥屋大門公園 (龍貓森林)\n3. 一蘭之森 (午餐自費)\n4. 白絲瀑布\n5. 椰子樹鞦韆"
                 },
                 {
                     id: 'd3-4',
-                    time: "16:10",
-                    title: "宮地嶽神社",
-                    type: "sight",
-                    icon: "Sun",
-                    locationName: "宮地嶽神社",
-                    lat: 33.7800, lng: 130.4850,
-                    description: "著名的「光之大道」，參道直通大海。",
-                    details: "備註：宗像道之驛可能休館 (12/31-1/5)，行程可能調整。\n看點：光之大道夕陽絕景 (雖非正中但依然壯觀)。"
+                    time: "17:30",
+                    title: "返回抵達博多站",
+                    type: "transport",
+                    icon: "MapPin",
+                    locationName: "博多站",
+                    imageKeyword: "Hakata Station Evening",
+                    lat: 33.5900, lng: 130.4206,
+                    description: "於筑紫口附近解散。",
+                    details: "解散後準備前往晚餐地點。"
                 },
                 {
                     id: 'd3-5',
-                    time: "19:30",
-                    title: "晚餐：博多站拉麵",
+                    time: "18:00",
+                    title: "晚餐：博多一雙",
                     type: "food",
                     icon: "Utensils",
-                    locationName: "博多一雙 或 大地的烏龍麵",
-                    lat: 33.5898, lng: 130.4200,
-                    description: "返回博多站，享用濃郁豚骨或清爽烏龍麵。",
-                    details: "推薦：\n1. 博多一雙 (泡沫系豚骨)\n2. 大地的烏龍麵 (炸牛蒡烏龍麵)"
+                    locationName: "博多一双 博多駅東本店",
+                    imageKeyword: "Ramen Broth",
+                    lat: 33.5888, lng: 130.4243,
+                    description: "「豚骨卡布奇諾」，濃郁泡沫湯頭。",
+                    details: "位置：解散地點步行 6-8 分鐘。\n獨旅亮點：排隊約 40-60 分鐘，剛好整理照片。必點味玉拉麵 + 一口餃子。"
+                },
+                {
+                    id: 'd3-6',
+                    time: "20:00",
+                    title: "飯後採買",
+                    type: "shopping",
+                    icon: "ShoppingBag",
+                    locationName: "博多站",
+                    imageKeyword: "Japanese Souvenir",
+                    lat: 33.5900, lng: 130.4206,
+                    description: "逛逛超市或伴手禮店，隨後回飯店。",
+                    details: "可以在博多站內購買零食或補齊伴手禮。"
                 }
             ]
         },
@@ -254,41 +335,80 @@
             dayId: 4,
             date: "2026/01/05",
             weekday: "週一",
-            title: "晨間散策與從容離境",
-            theme: "大濠公園、最後採購",
+            title: "市場鮮味與完美句點",
+            theme: "市場開市、胡麻鯖魚、從容離境",
             locations: [
                 {
                     id: 'd4-1',
-                    time: "08:30",
-                    title: "大濠公園散步",
-                    type: "sight",
-                    icon: "Coffee",
-                    locationName: "大濠公園",
-                    lat: 33.5860, lng: 130.3765,
-                    description: "湖邊散步，Royal Garden Cafe 喝咖啡。",
-                    details: "交通：地鐵天神站 -> 大濠公園站。\n氣氛：享受福岡最後的悠閒早晨。"
+                    time: "10:00",
+                    title: "Check-out",
+                    type: "hotel",
+                    icon: "Briefcase",
+                    locationName: "The BREAKFAST HOTEL 福岡天神",
+                    imageKeyword: "Luggage Hotel",
+                    lat: 33.5890, lng: 130.4020,
+                    description: "行李寄放飯店櫃檯 (最後從這搭車)。",
+                    details: "策略：行李寄放在飯店，最後從飯店直接搭計程車去機場最輕鬆。"
                 },
                 {
                     id: 'd4-2',
-                    time: "11:00",
-                    title: "最後採購 & 午餐",
-                    type: "shopping",
+                    time: "10:30",
+                    title: "柳橋連合市場",
+                    type: "sight",
                     icon: "ShoppingBag",
-                    locationName: "博多站 / 天神",
-                    lat: 33.5900, lng: 130.4206,
-                    description: "買明太子、福砂屋蛋糕。午餐吃牛舌。",
-                    details: "午餐推薦：博多站內 Tanal (牛舌) 或 博多麵街道。\n伴手禮：博多通饅頭、明太子。"
+                    locationName: "柳橋連合市場",
+                    imageKeyword: "Yanagibashi Market",
+                    lat: 33.5828, lng: 130.4045,
+                    description: "新年開市，博多廚房氣氛熱鬧。",
+                    details: "交通：從飯店步行約 8 分鐘。\n美食：推薦「高松之蒲鉾」現炸魚板。"
                 },
                 {
                     id: 'd4-3',
-                    time: "14:20",
+                    time: "11:30",
+                    title: "午餐：博多胡麻鯖魚屋",
+                    type: "food",
+                    icon: "Utensils",
+                    locationName: "博多ごまさば屋",
+                    imageKeyword: "Gomasaba",
+                    lat: 33.5886, lng: 130.3934,
+                    description: "赤坂名店，福岡限定生魚片料理。",
+                    details: "交通：從市場搭計程車約 1,000 円。\n獨旅亮點：定食 CP 值高，茶泡飯吃到飽。品嚐道地「胡麻鯖魚」。"
+                },
+                {
+                    id: 'd4-4',
+                    time: "13:30",
+                    title: "返回飯店取行李",
+                    type: "transport",
+                    icon: "Briefcase",
+                    locationName: "The BREAKFAST HOTEL 福岡天神",
+                    imageKeyword: "Hotel Lobby",
+                    lat: 33.5890, lng: 130.4020,
+                    description: "回到春吉飯店拿行李。",
+                    details: "準備前往機場。"
+                },
+                {
+                    id: 'd4-5',
+                    time: "14:00",
                     title: "前往機場",
                     type: "transport",
-                    icon: "Plane",
+                    icon: "Car",
                     locationName: "福岡機場 (FUK)",
+                    imageKeyword: "Taxi Airport",
                     lat: 33.5859, lng: 130.4507,
-                    description: "搭計程車或地鐵前往。16:55 起飛。",
-                    details: "航班：AK1511 (FUK - TPE)\n時間：16:55 起飛 - 18:30 抵達\n提醒：預留時間逛機場免稅店。"
+                    description: "計程車直達國際線 (約 20-25 分鐘)。",
+                    details: "車程：約 20-25 分鐘，直達國際線航廈出境大廳。"
+                },
+                {
+                    id: 'd4-6',
+                    time: "14:55",
+                    title: "抵達機場 & 免稅店",
+                    type: "shopping",
+                    icon: "Plane",
+                    locationName: "福岡機場免稅店",
+                    imageKeyword: "Airport Duty Free",
+                    lat: 33.5859, lng: 130.4507,
+                    description: "最後衝刺：Menbei、博多通饅頭、努努雞。",
+                    details: "航班：AK1511 (16:55 起飛)。\n購物：購買福太郎 Menbei、博多通饅頭、努努雞等。"
                 }
             ]
         }
@@ -298,10 +418,41 @@
 
     // 1. Icon Component
     const Icon = ({ name, size = 20, className }) => {
+        const ref = useRef(null);
+
         useEffect(() => {
-            lucide.createIcons();
-        }, [name]);
-        return <i data-lucide={name} width={size} height={size} className={className}></i>;
+            if (!ref.current || !window.lucide) return;
+            const getIconDef = (n) => {
+                const { icons } = window.lucide;
+                if (icons[n]) return icons[n];
+                const pascal = n.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('');
+                if (icons[pascal]) return icons[pascal];
+                return null;
+            };
+            const iconDef = getIconDef(name);
+            if (!iconDef) return;
+
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', size);
+            svg.setAttribute('height', size);
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.setAttribute('fill', 'none');
+            svg.setAttribute('stroke', 'currentColor');
+            svg.setAttribute('stroke-width', '2');
+            svg.setAttribute('stroke-linecap', 'round');
+            svg.setAttribute('stroke-linejoin', 'round');
+            if (className) svg.setAttribute('class', className);
+
+            iconDef.forEach(([tag, attrs]) => {
+                const child = document.createElementNS('http://www.w3.org/2000/svg', tag);
+                Object.entries(attrs).forEach(([k, v]) => child.setAttribute(k, v));
+                svg.appendChild(child);
+            });
+            ref.current.innerHTML = '';
+            ref.current.appendChild(svg);
+        }, [name, size, className]);
+
+        return <span ref={ref} className={`inline-flex items-center justify-center ${className || ''}`} style={{ width: size, height: size }}></span>;
     };
 
     const getIconName = (type) => {
@@ -311,9 +462,10 @@
             case 'food': return 'utensils';
             case 'shopping': return 'shopping-bag';
             case 'sight': return 'camera';
-            case 'transport': return 'train-front';
+            case 'transport': return 'car';
             case 'alert': return 'alert-circle';
             case 'event': return 'flag';
+            case 'bus': return 'bus';
             default: return 'map-pin';
         }
     };
@@ -326,15 +478,32 @@
             case 'shopping': return 'bg-pink-100 text-pink-600';
             case 'sight': return 'bg-green-100 text-green-600';
             case 'alert': return 'bg-red-100 text-red-600';
+            case 'bus': return 'bg-teal-100 text-teal-600';
             default: return 'bg-gray-100 text-gray-600';
         }
     };
 
-    // 2. Map Component (Leaflet)
+    // 2. Map Component (Leaflet) with List below
     const MapView = ({ activeDay, data }) => {
         const mapRef = useRef(null);
         const mapInstanceRef = useRef(null);
         const markersRef = useRef([]);
+
+        // Derive the list of locations to show
+        const locationsToShow = useMemo(() => {
+            const daysToShow = activeDay === 'all' ? data : [data[activeDay]];
+            const flatLocations = [];
+            daysToShow.forEach((day, dIdx) => {
+                day.locations.forEach((loc, lIdx) => {
+                    flatLocations.push({
+                        ...loc,
+                        globalIndex: flatLocations.length + 1, // Number sequentially for the list
+                        dayLabel: `Day ${day.dayId}`
+                    });
+                });
+            });
+            return flatLocations;
+        }, [activeDay, data]);
 
         useEffect(() => {
             if (!mapInstanceRef.current) {
@@ -350,62 +519,127 @@
 
             let points = [];
             
-            const daysToShow = activeDay === 'all' ? data : [data[activeDay]];
-
-            daysToShow.forEach((day, dayIndex) => {
-                day.locations.forEach((loc, locIndex) => {
-                    const markerColor = dayIndex === 0 ? 'blue' : dayIndex === 1 ? 'green' : dayIndex === 2 ? 'red' : 'orange';
-                    
-                    // Simple custom icon
-                    const myIcon = L.divIcon({
-                        className: 'custom-div-icon',
-                        html: `<div style="background-color: ${locIndex === 0 ? '#000' : '#4F46E5'}; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">${locIndex + 1}</div>`,
-                        iconSize: [24, 24],
-                        iconAnchor: [12, 12]
-                    });
-
-                    const marker = L.marker([loc.lat, loc.lng], { icon: myIcon })
-                        .addTo(mapInstanceRef.current)
-                        .bindPopup(`<b>D${day.dayId} - ${loc.time}</b><br>${loc.title}`);
-                    
-                    markersRef.current.push(marker);
-                    points.push([loc.lat, loc.lng]);
+            locationsToShow.forEach((loc) => {
+                const myIcon = L.divIcon({
+                    className: 'custom-div-icon',
+                    html: `<div style="background-color: #4F46E5; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">${loc.globalIndex}</div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
                 });
+
+                const marker = L.marker([loc.lat, loc.lng], { icon: myIcon })
+                    .addTo(mapInstanceRef.current)
+                    .bindPopup(`<b>${loc.globalIndex}. ${loc.title}</b><br>${loc.locationName}`);
+                
+                markersRef.current.push(marker);
+                points.push([loc.lat, loc.lng]);
             });
 
             if (points.length > 0) {
                 const bounds = L.latLngBounds(points);
                 mapInstanceRef.current.fitBounds(bounds, { padding: [50, 50] });
             }
-
-            // Fix map sizing issues
+            
             setTimeout(() => {
                 mapInstanceRef.current.invalidateSize();
             }, 100);
 
-        }, [activeDay, data]);
+        }, [locationsToShow]);
 
-        return <div id="map-container" className="rounded-xl overflow-hidden shadow-inner"></div>;
+        return (
+            <div className="flex flex-col h-full">
+                <div id="map-container" className="rounded-xl overflow-hidden shadow-inner flex-shrink-0"></div>
+                
+                <div className="flex-1 overflow-y-auto mt-4 px-1 pb-4">
+                    <h3 className="font-bold text-gray-700 mb-3 px-1 flex items-center gap-2">
+                        <Icon name="list" size={18} /> 
+                        景點列表 ({activeDay === 'all' ? '全程' : `Day ${activeDay + 1}`})
+                    </h3>
+                    <div className="space-y-3">
+                        {locationsToShow.map((loc) => (
+                            <div key={`${loc.id}-list`} className="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-start gap-3">
+                                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold mt-0.5">
+                                    {loc.globalIndex}
+                                </span>
+                                <div>
+                                    <h4 className="font-bold text-gray-800 text-sm">{loc.title}</h4>
+                                    <p className="text-xs text-gray-500 mt-0.5 flex items-center gap-1">
+                                        <Icon name="map-pin" size={10} /> {loc.locationName}
+                                    </p>
+                                    {activeDay === 'all' && (
+                                        <span className="inline-block mt-1 px-1.5 py-0.5 bg-gray-100 text-gray-500 text-[10px] rounded">
+                                            {loc.dayLabel}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    // 6. Gallery View Component
+    const GalleryView = ({ data }) => {
+        // Flatten all locations that have image keywords
+        const galleryItems = useMemo(() => {
+            const items = [];
+            data.forEach(day => {
+                day.locations.forEach(loc => {
+                    if (loc.imageKeyword) {
+                        items.push({
+                            ...loc,
+                            dayTitle: `Day ${day.dayId}`
+                        });
+                    }
+                });
+            });
+            return items;
+        }, [data]);
+
+        return (
+            <div className="grid grid-cols-2 gap-3 mt-4 pb-4">
+                {galleryItems.map((item) => (
+                    <div key={item.id} className="bg-white rounded-xl overflow-hidden shadow-sm break-inside-avoid">
+                        <div className="h-32 bg-gray-200 relative overflow-hidden">
+                            <img 
+                                src={`https://loremflickr.com/400/300/${encodeURIComponent(item.imageKeyword)},travel/all`} 
+                                alt={item.title}
+                                className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                                loading="lazy"
+                            />
+                            <div className="absolute top-2 left-2 bg-black/50 backdrop-blur-md text-white text-[10px] px-2 py-0.5 rounded-full">
+                                {item.dayTitle}
+                            </div>
+                        </div>
+                        <div className="p-3">
+                            <h4 className="font-bold text-gray-800 text-xs line-clamp-1 mb-1">{item.title}</h4>
+                            <p className="text-[10px] text-gray-500 flex items-center gap-1">
+                                <Icon name="map-pin" size={10} /> {item.locationName}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        );
     };
 
     // 3. Hero Section (Forecast + Currency)
     const HeroSection = ({ activeDayIndex, itineraryData }) => {
         const [expanded, setExpanded] = useState(true);
         const [forecast, setForecast] = useState(null);
-        const [jpyRate, setJpyRate] = useState(0.22); // Default fallback
+        const [jpyRate, setJpyRate] = useState(0.22); 
         const [amount, setAmount] = useState('');
         const [converted, setConverted] = useState(null);
         const [rateDate, setRateDate] = useState('');
 
         useEffect(() => {
-            // Fetch Daily Forecast (Fukuoka)
-            // We get 7 days. We will map index 0 to Day 1, index 1 to Day 2, etc.
             fetch('https://api.open-meteo.com/v1/forecast?latitude=33.5902&longitude=130.4017&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo')
                 .then(res => res.json())
                 .then(data => setForecast(data.daily))
                 .catch(err => console.error("Weather fetch failed", err));
 
-            // Fetch Currency
             fetch('https://api.exchangerate-api.com/v4/latest/JPY')
                 .then(res => res.json())
                 .then(data => {
@@ -432,11 +666,8 @@
             return '陰雨';
         };
 
-        // Determine which forecast day to show
-        // If activeDayIndex is 'all', default to 0. Otherwise use the index.
         const currentDayIdx = typeof activeDayIndex === 'number' ? activeDayIndex : 0;
         
-        // Safety check if forecast data is ready
         const todayForecast = forecast ? {
             max: forecast.temperature_2m_max[currentDayIdx],
             min: forecast.temperature_2m_min[currentDayIdx],
@@ -444,16 +675,14 @@
             desc: getWeatherDescription(forecast.weathercode[currentDayIdx])
         } : null;
 
-        // Display Date Logic
         const displayDate = typeof activeDayIndex === 'number' 
-            ? itineraryData[activeDayIndex].date.slice(5) // "01/02"
+            ? itineraryData[activeDayIndex].date.slice(5) 
             : "全程總覽";
         
         const displayLocation = typeof activeDayIndex === 'number' 
              ? "福岡市" 
              : "福岡縣";
 
-        // If collapsed (minimized)
         if (!expanded) {
             return (
                 <div 
@@ -480,14 +709,13 @@
             );
         }
 
-        // Expanded view
         return (
             <div className="bg-gradient-to-br from-indigo-600 to-blue-500 text-white rounded-b-3xl shadow-lg transition-all duration-300 overflow-hidden relative">
-                 <div className="absolute top-0 right-0 p-4 opacity-10">
+                 <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
                     <Icon name="map" size={120} />
                  </div>
                  
-                 <div className="p-6 pb-2">
+                 <div className="p-6 pb-2 relative z-10">
                     <div className="flex justify-between items-start">
                         <div>
                             <p className="text-blue-100 text-sm font-medium">{displayLocation}, 日本</p>
@@ -524,7 +752,7 @@
                     </div>
                  </div>
 
-                 <div className="px-6 pb-6">
+                 <div className="px-6 pb-6 relative z-10">
                     <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 mt-2">
                         <div className="flex justify-between items-center mb-2">
                             <span className="text-sm text-blue-100 flex items-center gap-1">
@@ -645,16 +873,11 @@
 
     // --- Main App Component ---
     const App = () => {
-        const [activeDayIndex, setActiveDayIndex] = useState(0); // 0-3
-        const [viewMode, setViewMode] = useState('timeline'); // 'timeline' or 'map'
+        const [activeDayIndex, setActiveDayIndex] = useState(0); // 0-3 or 'all'
+        const [viewMode, setViewMode] = useState('timeline'); // 'timeline' | 'map' | 'gallery'
         const [modalData, setModalData] = useState(null);
         const [showTips, setShowTips] = useState(false);
         const contentRef = useRef(null);
-
-        // Force icon refresh
-        useEffect(() => {
-            lucide.createIcons();
-        }, [activeDayIndex, viewMode, modalData]);
 
         // Scroll to top when changing day
         useEffect(() => {
@@ -664,7 +887,7 @@
             window.scrollTo(0,0);
         }, [activeDayIndex]);
 
-        const currentDayData = ITINERARY_DATA[activeDayIndex];
+        const currentDayData = typeof activeDayIndex === 'number' ? ITINERARY_DATA[activeDayIndex] : ITINERARY_DATA[0];
 
         return (
             <div className="min-h-screen pb-24">
@@ -688,9 +911,15 @@
                     {ITINERARY_DATA.map((day, idx) => (
                         <button
                             key={day.dayId}
-                            onClick={() => { setActiveDayIndex(idx); setViewMode('timeline'); }}
+                            onClick={() => { 
+                                setActiveDayIndex(idx); 
+                                // Keep current view mode unless switching specific logic requires reset
+                                if (viewMode === 'gallery') {
+                                    // Gallery shows all usually, but can filter. Let's keep it consistent.
+                                }
+                            }}
                             className={`flex-shrink-0 px-4 py-2 rounded-xl flex flex-col items-center min-w-[80px] transition-all border ${
-                                activeDayIndex === idx && viewMode === 'timeline'
+                                activeDayIndex === idx 
                                     ? 'bg-indigo-600 text-white border-indigo-600 shadow-lg scale-105' 
                                     : 'bg-white text-gray-500 border-gray-200'
                             }`}
@@ -699,12 +928,23 @@
                             <span className="font-bold text-sm">Day {day.dayId}</span>
                         </button>
                     ))}
+                    <button
+                        onClick={() => { setActiveDayIndex('all'); setViewMode('map'); }}
+                        className={`flex-shrink-0 px-4 py-2 rounded-xl flex flex-col items-center min-w-[80px] transition-all border ${
+                            activeDayIndex === 'all'
+                                ? 'bg-indigo-600 text-white border-indigo-600 shadow-lg scale-105' 
+                                : 'bg-white text-gray-500 border-gray-200'
+                        }`}
+                    >
+                        <span className="text-xs opacity-80">All</span>
+                        <span className="font-bold text-sm">全程</span>
+                    </button>
                 </div>
 
                 {/* Content Area */}
                 <div className="px-4 animate-[fadeIn_0.3s_ease-out]" ref={contentRef}>
                     
-                    {viewMode === 'timeline' ? (
+                    {viewMode === 'timeline' && typeof activeDayIndex === 'number' && (
                         <>
                             {/* Day Header */}
                             <div className="mb-6 mt-2">
@@ -774,53 +1014,52 @@
                                 💤 Day {currentDayData.dayId} 結束
                             </div>
                         </>
-                    ) : (
-                        <div className="mt-2">
+                    )}
+
+                    {viewMode === 'map' && (
+                        <div className="mt-2 h-full flex flex-col">
                             <h2 className="text-xl font-bold text-gray-800 mb-4 px-2">
-                                {activeDayIndex === 'all' ? '全程地圖' : `Day ${activeDayIndex + 1} 路線圖`}
+                                {activeDayIndex === 'all' ? '全程地圖導覽' : `Day ${activeDayIndex + 1} 路線圖`}
                             </h2>
                             <MapView activeDay={activeDayIndex} data={ITINERARY_DATA} />
-                            <div className="mt-4 p-4 bg-white rounded-xl text-sm text-gray-600 shadow-sm">
-                                <p className="flex items-center gap-2 mb-2"><span className="w-3 h-3 rounded-full bg-blue-600"></span> Day 1</p>
-                                <p className="flex items-center gap-2 mb-2"><span className="w-3 h-3 rounded-full bg-green-600"></span> Day 2</p>
-                                <p className="flex items-center gap-2 mb-2"><span className="w-3 h-3 rounded-full bg-red-600"></span> Day 3</p>
-                                <p className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-orange-600"></span> Day 4</p>
-                            </div>
+                        </div>
+                    )}
+
+                    {viewMode === 'gallery' && (
+                        <div className="mt-2">
+                            <h2 className="text-xl font-bold text-gray-800 mb-2 px-2">
+                                旅途映像
+                            </h2>
+                            <p className="px-2 text-sm text-gray-500">預覽您的福岡之旅氛圍</p>
+                            <GalleryView data={activeDayIndex === 'all' ? ITINERARY_DATA : [ITINERARY_DATA[activeDayIndex]]} />
                         </div>
                     )}
                 </div>
 
                 {/* Bottom Navigation */}
-                <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3 flex justify-between items-center z-40 safe-area-pb">
+                <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-2 flex justify-around items-center z-40 safe-area-pb shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
                     <button 
-                        onClick={() => setViewMode('timeline')}
-                        className={`flex flex-col items-center gap-1 transition ${viewMode === 'timeline' ? 'text-indigo-600' : 'text-gray-400'}`}
+                        onClick={() => { setViewMode('timeline'); if(activeDayIndex === 'all') setActiveDayIndex(0); }}
+                        className={`flex flex-col items-center gap-1 p-2 rounded-xl transition ${viewMode === 'timeline' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
                     >
                         <Icon name="list" size={24} />
-                        <span className="text-[10px] font-medium">行程表</span>
+                        <span className="text-[10px] font-medium">行程</span>
                     </button>
 
-                    <div 
-                        className="w-12 h-12 bg-indigo-600 rounded-full -mt-8 flex items-center justify-center shadow-lg shadow-indigo-300 text-white cursor-pointer hover:bg-indigo-700 transition"
-                        onClick={() => {
-                            if(viewMode === 'map' && activeDayIndex === 'all') {
-                                setViewMode('timeline');
-                                setActiveDayIndex(0);
-                            } else {
-                                setViewMode('map');
-                                setActiveDayIndex('all');
-                            }
-                        }}
+                    <button 
+                        onClick={() => setViewMode('map')}
+                        className={`flex flex-col items-center gap-1 p-2 rounded-xl transition ${viewMode === 'map' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
                     >
                         <Icon name="map" size={24} />
-                    </div>
+                        <span className="text-[10px] font-medium">地圖</span>
+                    </button>
 
                     <button 
-                        onClick={() => { setViewMode('map'); if(activeDayIndex === 'all') setActiveDayIndex(0); }}
-                        className={`flex flex-col items-center gap-1 transition ${viewMode === 'map' && activeDayIndex !== 'all' ? 'text-indigo-600' : 'text-gray-400'}`}
+                        onClick={() => setViewMode('gallery')}
+                        className={`flex flex-col items-center gap-1 p-2 rounded-xl transition ${viewMode === 'gallery' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
                     >
-                        <Icon name="map-pin" size={24} />
-                        <span className="text-[10px] font-medium">當日地圖</span>
+                        <Icon name="image" size={24} />
+                        <span className="text-[10px] font-medium">插圖</span>
                     </button>
                 </div>
 
