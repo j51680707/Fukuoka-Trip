@@ -69,7 +69,7 @@
             date: "2026/01/02",
             weekday: "週五",
             title: "初賣衝刺與韭菜山洗禮",
-            theme: "抵達、百貨福袋、博多靈魂美食",
+            theme: "地鐵移動、百貨福袋、博多靈魂美食",
             locations: [
                 {
                     id: 'd1-1',
@@ -77,39 +77,27 @@
                     title: "抵達福岡機場 (FUK)",
                     type: "transport",
                     icon: "Plane",
-                    locationName: "福岡機場國際線航廈",
+                    locationName: "福岡機場",
                     imageKeyword: "Fukuoka Airport",
                     lat: 33.5859, lng: 130.4507,
-                    description: "出關後，直接前往國際線計程車搭乘處。",
-                    details: "航班：AK1510 (16:00 抵達)\n\n行動：出關後直奔計程車乘車處。1月2日人潮較多，請預留通關時間。"
+                    description: "搭接駁巴士至國內線，轉乘地鐵。",
+                    details: "入境後，搭乘「免費接駁巴士」前往國內線航廈（地鐵站）。\n\n備註：1月2日人潮較多，請預留通關時間。"
                 },
                 {
                     id: 'd1-2',
                     time: "17:00",
-                    title: "搭計程車前往飯店",
+                    title: "移動：機場 → 飯店 (春吉)",
                     type: "transport",
-                    icon: "Car",
+                    icon: "Train",
                     locationName: "The BREAKFAST HOTEL 福岡天神",
-                    imageKeyword: "Japan Taxi",
+                    imageKeyword: "Fukuoka Subway",
                     lat: 33.5890, lng: 130.4020,
-                    description: "省去拖行李轉車麻煩，車資約 2,000-2,500 円。",
-                    details: "目的地：The BREAKFAST HOTEL Fukuoka Tenjin (位於春吉)。\n車資預估：約 2,000 - 2,500 日圓。"
+                    description: "地鐵轉乘：機場線 -> 七隈線。",
+                    details: "路線：\n1. 地鐵機場線「福岡空港」→「博多」。\n2. 轉乘七隈線 →「天神南」。\n3. 6號出口步行5分鐘至飯店。\n\n💳 支付：推薦使用【JCB 感應】進出閘門 (50%回饋)。"
                 },
                 {
                     id: 'd1-3',
-                    time: "17:40",
-                    title: "飯店 Check-in",
-                    type: "hotel",
-                    icon: "Hotel",
-                    locationName: "The BREAKFAST HOTEL 福岡天神",
-                    imageKeyword: "Hotel Reception",
-                    lat: 33.5890, lng: 130.4020,
-                    description: "快速辦理入住，輕裝出門。",
-                    details: "飯店：The BREAKFAST HOTEL Fukuoka Tenjin\n位置：春吉/天神南，交通與夜生活極便利。"
-                },
-                {
-                    id: 'd1-4',
-                    time: "18:00",
+                    time: "18:10",
                     title: "天神「初賣」巡禮",
                     type: "shopping",
                     icon: "ShoppingBag",
@@ -120,7 +108,7 @@
                     details: "地點：步行至天神地下街、福岡 PARCO 或 岩田屋。\n亮點：1月2日是百貨折扣第一天，雖然福袋可能搶光，但服飾折扣非常好買。"
                 },
                 {
-                    id: 'd1-5',
+                    id: 'd1-4',
                     time: "20:00",
                     title: "晚餐：元祖牛腸鍋 樂天地",
                     type: "food",
@@ -129,10 +117,10 @@
                     imageKeyword: "Motsunabe",
                     lat: 33.5878, lng: 130.3985,
                     description: "堆得像山的韭菜，消除首日疲勞。",
-                    details: "Tabelog：3.58\n獨旅亮點：韭菜山視覺震撼，蒜味濃郁湯底。建議事先預約。\n位置：天神西通店。"
+                    details: "【主選】樂天地天神西通店\n特色：韭菜山視覺震撼，蒜味濃郁。建議預約。\n\n【備案】博多牛腸鍋 大山 (PARCO/KITTE)\n特色：味噌口味，適合單人。"
                 },
                 {
-                    id: 'd1-6',
+                    id: 'd1-5',
                     time: "21:30",
                     title: "春吉/中洲散策",
                     type: "sight",
@@ -140,8 +128,8 @@
                     locationName: "春吉橋",
                     imageKeyword: "Nakasu Neon",
                     lat: 33.5915, lng: 130.4070,
-                    description: "欣賞那珂川夜景與霓虹倒影。",
-                    details: "路線：飯店所在的春吉區很有情調，步行至春吉橋看夜景。"
+                    description: "步行回飯店，欣賞那珂川夜景。",
+                    details: "路線：途經「春吉橋」欣賞那珂川的霓虹燈倒影與中洲夜景，步行回飯店休息。"
                 }
             ]
         },
@@ -149,20 +137,20 @@
             dayId: 2,
             date: "2026/01/03",
             weekday: "週六",
-            title: "震撼大佛與祭典熱血",
-            theme: "南藏院參拜、玉取祭、高雅水炊鍋",
+            title: "震撼大佛、祭典與深夜拉麵",
+            theme: "南藏院、玉取祭、水炊鍋、一矢拉麵",
             locations: [
                 {
                     id: 'd2-1',
                     time: "09:00",
-                    title: "出發前往南藏院",
+                    title: "移動：天神 → 南藏院",
                     type: "transport",
                     icon: "Train",
                     locationName: "城戶南藏院前站",
                     imageKeyword: "Japan Train Station",
                     lat: 33.6186, lng: 130.5630,
-                    description: "天神南 -> 博多 -> JR 篠栗線。",
-                    details: "交通：步行至地鐵「天神南站」→ 搭到「博多站」→ 轉乘 JR 篠栗線 → 抵達「城戶南藏院前」。"
+                    description: "地鐵七隈線轉 JR 篠栗線。",
+                    details: "1. 地鐵「天神南」→「博多」 (💳 JCB感應)。\n2. JR 篠栗線「博多」→「城戶南藏院前」 (💳 SUICA/現金)。\n注意：JR 不能用 JCB 感應。"
                 },
                 {
                     id: 'd2-2',
@@ -179,18 +167,18 @@
                 {
                     id: 'd2-3',
                     time: "12:00",
-                    title: "移動至箱崎宮",
+                    title: "移動：南藏院 → 箱崎宮",
                     type: "transport",
                     icon: "Train",
                     locationName: "箱崎宮前站",
                     imageKeyword: "Subway Japan",
                     lat: 33.6145, lng: 130.4225,
-                    description: "JR 吉塚/博多轉地鐵至箱崎宮前。",
-                    details: "交通：搭 JR 返回「吉塚站」或「博多站」，轉地鐵/JR 至「箱崎宮前」。"
+                    description: "JR轉地鐵至箱崎宮前。",
+                    details: "1. JR 回「博多」 (💳 SUICA)。\n2. 地鐵「博多」→「中洲川端」轉箱崎線→「箱崎宮前」 (💳 JCB感應)。"
                 },
                 {
                     id: 'd2-4',
-                    time: "12:30",
+                    time: "12:50",
                     title: "午餐：祭典屋台 (Yatai)",
                     type: "food",
                     icon: "Utensils",
@@ -198,31 +186,31 @@
                     imageKeyword: "Yatai Food",
                     lat: 33.6145, lng: 130.4225,
                     description: "參道上吃炒麵、章魚燒。",
-                    details: "體驗：最道地的日本祭典氣氛，隨意在攤販解決午餐。"
+                    details: "【主選】祭典屋台：炒麵、烤魷魚，體驗廟會氣氛。\n【備案】箱崎鳩太郎商店：神社對面古民家咖啡，有烏龍麵。"
                 },
                 {
                     id: 'd2-5',
-                    time: "13:00",
-                    title: "觀賞：箱崎宮「玉取祭」",
+                    time: "13:10",
+                    title: "觀賞：玉取祭 (Tamaseseri)",
                     type: "event",
                     icon: "Flag",
                     locationName: "箱崎宮",
                     imageKeyword: "Tamaseseri Festival",
                     lat: 33.6145, lng: 130.4225,
                     description: "九州三大祭典之一，壯丁搶球。",
-                    details: "亮點：場面陽剛熱血，建議在樓門附近卡位。"
+                    details: "亮點：場面陽剛熱血，建議在樓門附近卡位觀賞。"
                 },
                 {
                     id: 'd2-6',
                     time: "15:30",
-                    title: "櫛田神社 & 川端通",
+                    title: "移動 & 參拜：櫛田神社",
                     type: "sight",
                     icon: "MapPin",
                     locationName: "櫛田神社",
                     imageKeyword: "Kushida Shrine",
                     lat: 33.5930, lng: 130.4105,
-                    description: "參拜博多總鎮守，吃紅豆湯。",
-                    details: "交通：搭地鐵至「中洲川端」。\n美食：商店街必吃「川端善哉」(熱紅豆湯)。"
+                    description: "搭地鐵至中洲川端，參拜並吃紅豆湯。",
+                    details: "交通：地鐵至「中洲川端」 (💳 JCB感應)。\n活動：參拜櫛田神社，商店街吃「川端善哉」(紅豆湯)。"
                 },
                 {
                     id: 'd2-7',
@@ -233,20 +221,32 @@
                     locationName: "博多水炊き 濱田屋 くうてん",
                     imageKeyword: "Mizutaki Pot",
                     lat: 33.5898, lng: 130.4207,
-                    description: "JR博多城10樓，單人水炊鍋御膳。",
-                    details: "位置：JR博多城 10樓。\n獨旅亮點：提供極少見的「單人水炊鍋御膳」，環境優雅，湯頭充滿膠原蛋白。"
+                    description: "JR博多城10樓，精緻單人御膳。",
+                    details: "移動：地鐵至「博多」 (💳 JCB感應)。\n【主選】濱田屋 (JR博多城10F)：精緻單人鍋，湯頭高雅。\n【備案】博多華味鳥 (筑紫口)。"
                 },
                 {
                     id: 'd2-8',
                     time: "20:30",
-                    title: "返回天神",
+                    title: "返回飯店",
                     type: "transport",
-                    icon: "Moon",
+                    icon: "Train",
                     locationName: "天神南",
-                    imageKeyword: "Fukuoka Street Night",
+                    imageKeyword: "Fukuoka Subway",
                     lat: 33.5890, lng: 130.4020,
-                    description: "搭地鐵或計程車回飯店休息。",
-                    details: "結束充實的一天，返回飯店。"
+                    description: "地鐵七隈線：博多 -> 天神南。",
+                    details: "💳 支付：【JCB 感應】"
+                },
+                {
+                    id: 'd2-9',
+                    time: "21:30",
+                    title: "宵夜：一矢拉麵 (中洲)",
+                    type: "food",
+                    icon: "Utensils",
+                    locationName: "麺屋 一矢",
+                    imageKeyword: "Ramen Night",
+                    lat: 33.5932, lng: 130.4085,
+                    description: "中洲人氣黑拉麵，步行即達。",
+                    details: "移動：從飯店步行 5-8 分鐘。\n推薦：黑拉麵 (焦香蒜油) 與 炸雞翅。"
                 }
             ]
         },
@@ -259,44 +259,44 @@
             locations: [
                 {
                     id: 'd3-1',
-                    time: "07:40",
-                    title: "飯店出發",
+                    time: "08:10",
+                    title: "飯店出發 (請準時)",
                     type: "transport",
-                    icon: "Car",
-                    locationName: "The BREAKFAST HOTEL 福岡天神",
-                    imageKeyword: "Morning Taxi",
+                    icon: "Train",
+                    locationName: "天神南站",
+                    imageKeyword: "Subway Station",
                     lat: 33.5890, lng: 130.4020,
-                    description: "搭計程車至博多站筑紫口 (約1200円)。",
-                    details: "早餐：建議先在超商買好飯糰。\n交通：搭計程車前往博多站筑紫口集合。"
+                    description: "地鐵七隈線前往博多站。",
+                    details: "路線：地鐵七隈線「天神南」→「博多」 (💳 JCB感應)。\n注意：抵達後需預留時間走到「筑紫口」。"
                 },
                 {
                     id: 'd3-2',
-                    time: "08:20",
-                    title: "集合 (務必準時)",
+                    time: "08:50",
+                    title: "集合：Klook 巴士一日遊",
                     type: "alert",
                     icon: "Users",
                     locationName: "博多站筑紫口 LAWSON",
                     imageKeyword: "Hakata Station Chikushi",
                     lat: 33.5905, lng: 130.4220,
                     description: "筑紫口 Oriental Hotel 一樓 LAWSON 前。",
-                    details: "識別：尋找 Klook/EasyGo 旗幟的導遊。"
+                    details: "識別：尋找 Klook / EasyGo 旗幟的導遊。"
                 },
                 {
                     id: 'd3-3',
-                    time: "08:30",
+                    time: "09:00",
                     title: "糸島巴士一日遊",
                     type: "bus",
                     icon: "Bus",
                     locationName: "糸島",
                     imageKeyword: "Futamigaura Torii",
                     lat: 33.6420, lng: 130.1980,
-                    description: "櫻井二見浦、龍貓森林、白絲瀑布。",
-                    details: "行程亮點：\n1. 櫻井二見浦夫婦岩\n2. 芥屋大門公園 (龍貓森林)\n3. 一蘭之森 (午餐自費)\n4. 白絲瀑布\n5. 椰子樹鞦韆"
+                    description: "夫婦岩、龍貓森林、一蘭工廠。",
+                    details: "行程：櫻井二見浦夫婦岩、龍貓森林 (芥屋大門)、一蘭之森 (午餐自理/輕食)、白絲瀑布、椰子樹鞦韆。"
                 },
                 {
                     id: 'd3-4',
-                    time: "17:30",
-                    title: "返回抵達博多站",
+                    time: "18:00",
+                    title: "抵達博多站 (解散)",
                     type: "transport",
                     icon: "MapPin",
                     locationName: "博多站",
@@ -307,7 +307,7 @@
                 },
                 {
                     id: 'd3-5',
-                    time: "18:00",
+                    time: "18:10",
                     title: "晚餐：博多一雙",
                     type: "food",
                     icon: "Utensils",
@@ -315,19 +315,19 @@
                     imageKeyword: "Ramen Broth",
                     lat: 33.5888, lng: 130.4243,
                     description: "「豚骨卡布奇諾」，濃郁泡沫湯頭。",
-                    details: "位置：解散地點步行 6-8 分鐘。\n獨旅亮點：排隊約 40-60 分鐘，剛好整理照片。必點味玉拉麵 + 一口餃子。"
+                    details: "位置：筑紫口步行 6-8 分鐘。\n【主選】博多一雙：排隊約 40-60 分鐘，必吃濃厚豚骨。\n【備案】Shin-Shin (博多站內 2F 麵街道)：清甜順口，翻桌快。"
                 },
                 {
                     id: 'd3-6',
-                    time: "20:00",
-                    title: "飯後採買",
+                    time: "20:15",
+                    title: "飯後採買 & 返回",
                     type: "shopping",
                     icon: "ShoppingBag",
-                    locationName: "博多站",
-                    imageKeyword: "Japanese Souvenir",
+                    locationName: "博多站 / 天神南",
+                    imageKeyword: "Japanese Strawberry",
                     lat: 33.5900, lng: 130.4206,
-                    description: "逛逛超市或伴手禮店，隨後回飯店。",
-                    details: "可以在博多站內購買零食或補齊伴手禮。"
+                    description: "超市買草莓，搭地鐵回飯店。",
+                    details: "活動：博多站超市買草莓/伴手禮。\n交通：地鐵七隈線「博多」→「天神南」 (💳 JCB感應)。"
                 }
             ]
         },
@@ -347,8 +347,8 @@
                     locationName: "The BREAKFAST HOTEL 福岡天神",
                     imageKeyword: "Luggage Hotel",
                     lat: 33.5890, lng: 130.4020,
-                    description: "行李寄放飯店櫃檯 (最後從這搭車)。",
-                    details: "策略：行李寄放在飯店，最後從飯店直接搭計程車去機場最輕鬆。"
+                    description: "行李寄放飯店櫃檯 (輕裝出門)。",
+                    details: "策略：將行李寄放在飯店，方便最後回來直接去機場。"
                 },
                 {
                     id: 'd4-2',
@@ -359,7 +359,7 @@
                     locationName: "柳橋連合市場",
                     imageKeyword: "Yanagibashi Market",
                     lat: 33.5828, lng: 130.4045,
-                    description: "新年開市，博多廚房氣氛熱鬧。",
+                    description: "新年開市，推薦現炸魚板。",
                     details: "交通：從飯店步行約 8 分鐘。\n美食：推薦「高松之蒲鉾」現炸魚板。"
                 },
                 {
@@ -371,8 +371,8 @@
                     locationName: "博多ごまさば屋",
                     imageKeyword: "Gomasaba",
                     lat: 33.5886, lng: 130.3934,
-                    description: "赤坂名店，福岡限定生魚片料理。",
-                    details: "交通：從市場搭計程車約 1,000 円。\n獨旅亮點：定食 CP 值高，茶泡飯吃到飽。品嚐道地「胡麻鯖魚」。"
+                    description: "赤坂名店，定食 CP 值極高。",
+                    details: "交通：步行回天神南 -> 地鐵七隈線至天神 -> 轉機場線至赤坂 (💳 JCB感應)。\n【主選】胡麻鯖魚屋：生魚片定食+茶泡飯吃到飽。\n【備案】黑田飯 天神店：烏龍麵/海鮮丼，出餐快。"
                 },
                 {
                     id: 'd4-4',
@@ -383,20 +383,20 @@
                     locationName: "The BREAKFAST HOTEL 福岡天神",
                     imageKeyword: "Hotel Lobby",
                     lat: 33.5890, lng: 130.4020,
-                    description: "回到春吉飯店拿行李。",
-                    details: "準備前往機場。"
+                    description: "地鐵赤坂 -> 天神...步行回飯店。",
+                    details: "交通：地鐵機場線「赤坂」→「天神」 (💳 JCB感應)，再步行回飯店拿行李。"
                 },
                 {
                     id: 'd4-5',
                     time: "14:00",
-                    title: "前往機場",
+                    title: "移動：飯店 → 機場",
                     type: "transport",
-                    icon: "Car",
+                    icon: "Train",
                     locationName: "福岡機場 (FUK)",
-                    imageKeyword: "Taxi Airport",
+                    imageKeyword: "Fukuoka Airport",
                     lat: 33.5859, lng: 130.4507,
-                    description: "計程車直達國際線 (約 20-25 分鐘)。",
-                    details: "車程：約 20-25 分鐘，直達國際線航廈出境大廳。"
+                    description: "地鐵轉接駁巴士至國際線。",
+                    details: "路線：\n1. 地鐵七隈線「天神南」→「博多」。\n2. 轉乘機場線「博多」→「福岡空港」 (💳 JCB感應)。\n3. 轉乘機場免費接駁巴士至國際線航廈。\n時間：預留 40-50 分鐘交通時間。"
                 },
                 {
                     id: 'd4-6',
@@ -408,7 +408,103 @@
                     imageKeyword: "Airport Duty Free",
                     lat: 33.5859, lng: 130.4507,
                     description: "最後衝刺：Menbei、博多通饅頭、努努雞。",
-                    details: "航班：AK1511 (16:55 起飛)。\n購物：購買福太郎 Menbei、博多通饅頭、努努雞等。"
+                    details: "航班：AK1511 (16:55 起飛)。\n必買：努努雞 (冷炸雞)、Menbei、博多通饅頭。"
+                }
+            ]
+        }
+    ];
+
+    // --- Data: Souvenirs ---
+    const SOUVENIR_DATA = [
+        {
+            category: "🏆 福岡雙璧：絕不出錯",
+            items: [
+                {
+                    id: 's1',
+                    title: "博多通饅頭 (博多通りもん)",
+                    tag: "甜食",
+                    desc: "福岡伴手禮王者。西洋奶油與日式白豆沙混合，口感綿密濕潤，帶有濃郁奶香。",
+                    recommend: "辦公室分送 (單包裝)、長輩送禮",
+                    location: "博多站 Ming / 機場免稅店",
+                    imageKeyword: "Japanese Manju"
+                },
+                {
+                    id: 's2',
+                    title: "福太郎 Menbei (めんべい)",
+                    tag: "鹹食",
+                    desc: "明太子仙貝。口感硬脆，濃郁海鮮與微辣明太子香氣。",
+                    recommend: "配啤酒下酒、喜歡鹹食者",
+                    location: "博多站各處 / 機場免稅店",
+                    imageKeyword: "Senbei"
+                }
+            ]
+        },
+        {
+            category: "🍜 博多美食帶回家",
+            items: [
+                {
+                    id: 's3',
+                    title: "博多一雙 / Shin-Shin 拉麵包",
+                    tag: "料理包",
+                    desc: "名店還原度高。一雙為濃厚泡沫系，Shin-Shin 為清甜細麵。",
+                    recommend: "拉麵愛好者 (可帶回台灣，無肉片)",
+                    location: "博多站 Ming",
+                    imageKeyword: "Hakata Ramen Kit"
+                },
+                {
+                    id: 's4',
+                    title: "山屋 (YAMAYA) 軟管明太子",
+                    tag: "需冷藏",
+                    desc: "牙膏狀包裝方便使用。直接擠在白飯、吐司或拌義大利麵。",
+                    recommend: "自用烹飪、送給愛做菜的朋友",
+                    location: "機場管制區外 / 博多站",
+                    imageKeyword: "Mentaiko Tube"
+                },
+                {
+                    id: 's5',
+                    title: "柚子胡椒 (Yuzu Kosho)",
+                    tag: "調味",
+                    desc: "九州特有調味料 (柚子皮+辣椒)。煮火鍋、沾肉神器。",
+                    recommend: "推薦「茅乃舍」品牌",
+                    location: "博多站 / 機場",
+                    imageKeyword: "Yuzu Kosho"
+                }
+            ]
+        },
+        {
+            category: "🍓 冬季限定：甘王草莓",
+            items: [
+                {
+                    id: 's6',
+                    title: "PRESS BUTTER SAND (草莓味)",
+                    tag: "甜點",
+                    desc: "福岡限定紅色包裝。焦糖奶油夾心，酸甜不膩。",
+                    recommend: "送禮首選，包裝精美質感高",
+                    location: "博多站專賣店",
+                    imageKeyword: "Butter Sand Cookie"
+                },
+                {
+                    id: 's7',
+                    title: "伊都 King 銅鑼燒",
+                    tag: "甜點",
+                    desc: "糸島產草莓甜點專賣店。整顆草莓放入的銅鑼燒。",
+                    recommend: "當場吃或當天送禮",
+                    location: "博多站 Ming / 機場",
+                    imageKeyword: "Strawberry Dorayaki"
+                }
+            ]
+        },
+        {
+            category: "🍗 宵夜推薦",
+            items: [
+                {
+                    id: 's8',
+                    title: "努努雞 (冷炸雞)",
+                    tag: "需冷凍",
+                    desc: "冰冰吃的炸雞，越吃越涮嘴。適合當宵夜。",
+                    recommend: "在飯店當宵夜吃 (帶回台灣稍麻煩)",
+                    location: "博多站 / 機場",
+                    imageKeyword: "Fried Chicken Wings"
                 }
             ]
         }
@@ -462,7 +558,7 @@
             case 'food': return 'utensils';
             case 'shopping': return 'shopping-bag';
             case 'sight': return 'camera';
-            case 'transport': return 'car';
+            case 'transport': return 'train-front'; // Changed default transport to train as it's major here
             case 'alert': return 'alert-circle';
             case 'event': return 'flag';
             case 'bus': return 'bus';
@@ -621,6 +717,91 @@
                         </div>
                     </div>
                 ))}
+            </div>
+        );
+    };
+
+    // 7. Souvenir View Component
+    const SouvenirView = () => {
+        return (
+            <div className="px-1 pb-4 mt-2">
+                <h2 className="text-xl font-bold text-gray-800 mb-4 px-2">福岡伴手禮攻略</h2>
+                
+                {/* Shopping Guide Box */}
+                <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-4 mb-6">
+                    <h3 className="font-bold text-indigo-700 text-sm mb-2 flex items-center gap-2">
+                        <Icon name="shopping-bag" size={16} /> 購買戰略 (配合 Day 4)
+                    </h3>
+                    <ul className="text-xs text-gray-600 space-y-2">
+                        <li className="flex gap-2 items-start">
+                            <span className="font-bold text-indigo-500">博多站 Ming：</span>
+                            <span>伴手禮一級戰區，建議買齊乾貨 (通饅頭、Menbei、拉麵包、柚子胡椒)。</span>
+                        </li>
+                        <li className="flex gap-2 items-start">
+                            <span className="font-bold text-indigo-500">機場免稅店：</span>
+                            <span>省 10% 消費稅，免湊退稅。建議買通饅頭、Menbei、小雞饅頭、Royce，減少手提重量。</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div className="space-y-6">
+                    {SOUVENIR_DATA.map((category, idx) => (
+                        <div key={idx}>
+                            <h3 className="text-sm font-bold text-gray-500 mb-3 px-2 sticky top-0 bg-[#f3f4f6] py-2 z-10">
+                                {category.category}
+                            </h3>
+                            <div className="grid grid-cols-1 gap-3">
+                                {category.items.map((item) => (
+                                    <div key={item.id} className="bg-white rounded-xl p-3 shadow-sm flex gap-3">
+                                        <div className="w-24 h-24 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden">
+                                            <img 
+                                                src={`https://loremflickr.com/200/200/${encodeURIComponent(item.imageKeyword)},food/all`}
+                                                alt={item.title}
+                                                className="w-full h-full object-cover"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                        <div className="flex-1 flex flex-col justify-between">
+                                            <div>
+                                                <div className="flex justify-between items-start mb-1">
+                                                    <h4 className="font-bold text-gray-800 text-sm line-clamp-1">{item.title}</h4>
+                                                    <span className={`text-[10px] px-1.5 py-0.5 rounded ${
+                                                        item.tag === '甜食' || item.tag === '甜點' ? 'bg-pink-100 text-pink-600' :
+                                                        item.tag === '鹹食' || item.tag === '料理包' ? 'bg-orange-100 text-orange-600' :
+                                                        item.tag === '需冷藏' || item.tag === '需冷凍' ? 'bg-blue-100 text-blue-600' :
+                                                        'bg-gray-100 text-gray-600'
+                                                    }`}>{item.tag}</span>
+                                                </div>
+                                                <p className="text-xs text-gray-600 leading-snug line-clamp-2">{item.desc}</p>
+                                            </div>
+                                            <div className="mt-2">
+                                                <div className="flex items-center gap-1 text-[10px] text-gray-500">
+                                                    <Icon name="thumbs-up" size={10} className="text-indigo-500"/>
+                                                    <span>推薦：{item.recommend}</span>
+                                                </div>
+                                                <div className="flex items-center gap-1 text-[10px] text-gray-500 mt-0.5">
+                                                    <Icon name="map-pin" size={10} />
+                                                    <span>{item.location}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                
+                {/* Summary List */}
+                <div className="mt-8 px-2 pb-4">
+                    <h4 className="font-bold text-gray-700 text-sm mb-3">📝 快速清單</h4>
+                    <div className="bg-white rounded-xl p-4 text-xs text-gray-600 space-y-2 border border-gray-100">
+                        <p>🔹 <strong>自己吃/煮：</strong> 柚子胡椒、軟管明太子、博多一雙拉麵包</p>
+                        <p>🔹 <strong>送同事/朋友：</strong> 博多通饅頭 (接受度最高)</p>
+                        <p>🔹 <strong>送自己/家人：</strong> PRESS BUTTER SAND (草莓口味)</p>
+                        <p>🔹 <strong>宵夜 (日本吃完)：</strong> 努努雞</p>
+                    </div>
+                </div>
             </div>
         );
     };
@@ -845,6 +1026,10 @@
                         </div>
                         <ul className="space-y-4 text-sm text-gray-700">
                             <li className="flex gap-3">
+                                <span className="text-xl">💳</span>
+                                <span><strong>JCB 感應 (JCB Contactless)：</strong>適用於 福岡市地下鐵全線（機場線、七隈線、箱崎線）。進出閘門時直接使用實體卡或手機 Apple Pay 感應，可享 50% 回饋。</span>
+                            </li>
+                            <li className="flex gap-3">
                                 <span className="text-xl">🚌</span>
                                 <span><strong>公車後門上車：</strong>福岡西鐵巴士多為後門上車（抽整理券或刷 IC 卡），前門下車付款。</span>
                             </li>
@@ -874,7 +1059,7 @@
     // --- Main App Component ---
     const App = () => {
         const [activeDayIndex, setActiveDayIndex] = useState(0); // 0-3 or 'all'
-        const [viewMode, setViewMode] = useState('timeline'); // 'timeline' | 'map' | 'gallery'
+        const [viewMode, setViewMode] = useState('timeline'); // 'timeline' | 'map' | 'gallery' | 'souvenir'
         const [modalData, setModalData] = useState(null);
         const [showTips, setShowTips] = useState(false);
         const contentRef = useRef(null);
@@ -913,9 +1098,10 @@
                             key={day.dayId}
                             onClick={() => { 
                                 setActiveDayIndex(idx); 
-                                // Keep current view mode unless switching specific logic requires reset
-                                if (viewMode === 'gallery') {
-                                    // Gallery shows all usually, but can filter. Let's keep it consistent.
+                                if (viewMode === 'gallery' || viewMode === 'souvenir') {
+                                    // keep current view
+                                } else {
+                                    setViewMode('timeline');
                                 }
                             }}
                             className={`flex-shrink-0 px-4 py-2 rounded-xl flex flex-col items-center min-w-[80px] transition-all border ${
@@ -1034,32 +1220,44 @@
                             <GalleryView data={activeDayIndex === 'all' ? ITINERARY_DATA : [ITINERARY_DATA[activeDayIndex]]} />
                         </div>
                     )}
+
+                    {viewMode === 'souvenir' && (
+                        <SouvenirView />
+                    )}
                 </div>
 
                 {/* Bottom Navigation */}
-                <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-2 flex justify-around items-center z-40 safe-area-pb shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 flex justify-between items-center z-40 safe-area-pb shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
                     <button 
                         onClick={() => { setViewMode('timeline'); if(activeDayIndex === 'all') setActiveDayIndex(0); }}
-                        className={`flex flex-col items-center gap-1 p-2 rounded-xl transition ${viewMode === 'timeline' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
+                        className={`flex flex-col items-center gap-1 p-2 flex-1 rounded-xl transition ${viewMode === 'timeline' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
                     >
-                        <Icon name="list" size={24} />
+                        <Icon name="list" size={20} />
                         <span className="text-[10px] font-medium">行程</span>
                     </button>
 
                     <button 
                         onClick={() => setViewMode('map')}
-                        className={`flex flex-col items-center gap-1 p-2 rounded-xl transition ${viewMode === 'map' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
+                        className={`flex flex-col items-center gap-1 p-2 flex-1 rounded-xl transition ${viewMode === 'map' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
                     >
-                        <Icon name="map" size={24} />
+                        <Icon name="map" size={20} />
                         <span className="text-[10px] font-medium">地圖</span>
                     </button>
 
                     <button 
                         onClick={() => setViewMode('gallery')}
-                        className={`flex flex-col items-center gap-1 p-2 rounded-xl transition ${viewMode === 'gallery' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
+                        className={`flex flex-col items-center gap-1 p-2 flex-1 rounded-xl transition ${viewMode === 'gallery' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
                     >
-                        <Icon name="image" size={24} />
+                        <Icon name="image" size={20} />
                         <span className="text-[10px] font-medium">插圖</span>
+                    </button>
+
+                    <button 
+                        onClick={() => setViewMode('souvenir')}
+                        className={`flex flex-col items-center gap-1 p-2 flex-1 rounded-xl transition ${viewMode === 'souvenir' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
+                    >
+                        <Icon name="gift" size={20} />
+                        <span className="text-[10px] font-medium">伴手禮</span>
                     </button>
                 </div>
 
