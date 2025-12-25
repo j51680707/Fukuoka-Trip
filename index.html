@@ -558,7 +558,7 @@
             case 'food': return 'utensils';
             case 'shopping': return 'shopping-bag';
             case 'sight': return 'camera';
-            case 'transport': return 'train-front'; 
+            case 'transport': return 'train-front'; // Changed default transport to train as it's major here
             case 'alert': return 'alert-circle';
             case 'event': return 'flag';
             case 'bus': return 'bus';
@@ -676,8 +676,48 @@
         );
     };
 
+    // 8. Image Modal Component (New)
+    const ImageModal = ({ isOpen, onClose, item }) => {
+        if (!isOpen || !item) return null;
+
+        // Use higher resolution for loremflickr if it's not a local image
+        const imgSrc = item.isLocal 
+            ? item.src 
+            : `https://loremflickr.com/800/600/${encodeURIComponent(item.imageKeyword)},travel/all`;
+
+        return (
+            <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]" onClick={onClose}>
+                <button onClick={onClose} className="absolute top-4 right-4 p-2 bg-white/20 rounded-full text-white hover:bg-white/30 transition z-50">
+                    <Icon name="x" size={24} />
+                </button>
+                <div className="relative w-full max-w-lg" onClick={e => e.stopPropagation()}>
+                    <img 
+                        src={imgSrc} 
+                        alt={item.title}
+                        className="w-full h-auto max-h-[80vh] object-contain rounded-lg shadow-2xl"
+                        onError={(e) => {
+                            if (item.isLocal) {
+                                e.target.onerror = null;
+                                e.target.src = `https://placehold.co/800x600?text=${encodeURIComponent(item.title)}`;
+                            }
+                        }}
+                    />
+                    <div className="mt-4 text-center">
+                        <h3 className="text-white text-xl font-bold tracking-wide">{item.title}</h3>
+                        <p className="text-gray-300 text-sm flex items-center justify-center gap-1 mt-1">
+                            <Icon name="map-pin" size={14} /> {item.locationName}
+                        </p>
+                        <p className="text-gray-400 text-xs mt-1 bg-white/10 inline-block px-2 py-0.5 rounded-full">{item.dayTitle}</p>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     // 6. Gallery View Component
     const GalleryView = ({ data }) => {
+        const [selectedItem, setSelectedItem] = useState(null);
+
         // Static images requested
         const staticImages = [
             { 
@@ -720,37 +760,46 @@
         }, [data]);
 
         return (
-            <div className="grid grid-cols-2 gap-3 mt-4 pb-4">
-                {galleryItems.map((item) => (
-                    <div key={item.id} className="bg-white rounded-xl overflow-hidden shadow-sm break-inside-avoid">
-                        <div className="h-32 bg-gray-200 relative overflow-hidden group">
-                            <img 
-                                src={item.isLocal ? item.src : `https://loremflickr.com/400/300/${encodeURIComponent(item.imageKeyword)},travel/all`} 
-                                alt={item.title}
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                loading="lazy"
-                                onError={(e) => {
-                                    if (item.isLocal) {
-                                        // Fallback if local image missing
-                                        e.target.onerror = null;
-                                        e.target.src = `https://placehold.co/400x300?text=${encodeURIComponent(item.title)}`;
-                                        e.target.parentElement.classList.add('opacity-50'); // Dim it to show it's a placeholder
-                                    }
-                                }}
-                            />
-                            <div className={`absolute top-2 left-2 text-white text-[10px] px-2 py-0.5 rounded-full ${item.isLocal ? 'bg-indigo-600/80' : 'bg-black/50 backdrop-blur-md'}`}>
-                                {item.dayTitle}
+            <>
+                <div className="grid grid-cols-2 gap-3 mt-4 pb-4">
+                    {galleryItems.map((item) => (
+                        <div key={item.id} className="bg-white rounded-xl overflow-hidden shadow-sm break-inside-avoid group cursor-pointer transform transition hover:scale-[1.02] active:scale-95" onClick={() => setSelectedItem(item)}>
+                            <div className="h-32 bg-gray-200 relative overflow-hidden">
+                                <img 
+                                    src={item.isLocal ? item.src : `https://loremflickr.com/400/300/${encodeURIComponent(item.imageKeyword)},travel/all`} 
+                                    alt={item.title}
+                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    loading="lazy"
+                                    onError={(e) => {
+                                        if (item.isLocal) {
+                                            // Fallback if local image missing
+                                            e.target.onerror = null;
+                                            e.target.src = `https://placehold.co/400x300?text=${encodeURIComponent(item.title)}`;
+                                            e.target.parentElement.classList.add('opacity-50'); // Dim it to show it's a placeholder
+                                        }
+                                    }}
+                                />
+                                <div className={`absolute top-2 left-2 text-white text-[10px] px-2 py-0.5 rounded-full ${item.isLocal ? 'bg-indigo-600/80' : 'bg-black/50 backdrop-blur-md'}`}>
+                                    {item.dayTitle}
+                                </div>
+                            </div>
+                            <div className="p-3">
+                                <h4 className="font-bold text-gray-800 text-xs line-clamp-1 mb-1">{item.title}</h4>
+                                <p className="text-[10px] text-gray-500 flex items-center gap-1">
+                                    <Icon name={item.isLocal ? "image" : "map-pin"} size={10} /> {item.locationName}
+                                </p>
                             </div>
                         </div>
-                        <div className="p-3">
-                            <h4 className="font-bold text-gray-800 text-xs line-clamp-1 mb-1">{item.title}</h4>
-                            <p className="text-[10px] text-gray-500 flex items-center gap-1">
-                                <Icon name={item.isLocal ? "image" : "map-pin"} size={10} /> {item.locationName}
-                            </p>
-                        </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+                
+                {/* Full Screen Modal */}
+                <ImageModal 
+                    isOpen={!!selectedItem} 
+                    onClose={() => setSelectedItem(null)} 
+                    item={selectedItem} 
+                />
+            </>
         );
     };
 
