@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>福岡之旅 2026</title>
+    <title>福岡 4天3夜獨旅路書</title>
     
     <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -62,14 +62,14 @@
 
     const { useState, useEffect, useRef, useMemo } = React;
 
-    // --- Data: Itinerary ---
+    // --- 1. Data Definitions ---
     const ITINERARY_DATA = [
         {
             dayId: 1,
             date: "2026/01/02",
             weekday: "週五",
-            title: "初賣衝刺 (雨備模式)",
-            theme: "☔ 降雨機率 60%，請備摺疊傘，行程以地下街為主",
+            title: "機長激推 No.1 & PARCO 避雷攻略",
+            theme: "寒冷 1-9°C。交通：JCB卡 A (地鐵)",
             locations: [
                 {
                     id: 'd1-1',
@@ -77,59 +77,71 @@
                     title: "抵達福岡機場 (FUK)",
                     type: "transport",
                     icon: "Plane",
-                    locationName: "福岡機場國內線航廈",
-                    imageKeyword: "Fukuoka Airport Bus",
+                    locationName: "福岡機場",
+                    imageKeyword: "Fukuoka Airport",
                     lat: 33.5859, lng: 130.4507,
-                    description: "搭乘免費接駁巴士至國內線航廈轉乘地鐵。",
-                    details: "入境後，依照指標搭乘機場內的「免費接駁巴士」前往國內線航廈（地鐵站）。\n\n備註：1月2日人潮較多，請預留通關時間。"
+                    description: "接駁車至國內線 -> 地鐵至博多站。",
+                    details: "入境後搭乘接駁巴士前往國內線航廈。\n轉乘地鐵機場線：福岡空港 → 博多 (💳 JCB 卡 A)。"
                 },
                 {
                     id: 'd1-2',
                     time: "17:00",
-                    title: "移動：機場 → 飯店 (春吉)",
-                    type: "transport",
-                    icon: "Train",
-                    locationName: "The BREAKFAST HOTEL 福岡天神",
-                    imageKeyword: "Fukuoka Subway",
-                    lat: 33.5890, lng: 130.4020,
-                    description: "地鐵轉乘：機場線 -> 七隈線。",
-                    details: "路線：\n1. 地鐵機場線「福岡空港」→「博多」。\n2. 轉乘七隈線 →「天神南」。\n3. 6號出口步行5分鐘至飯店。\n\n💳 支付：使用【JCB 卡 A】 (直接感應進出站)。"
+                    title: "飯店 Check-in & 休息",
+                    type: "hotel",
+                    icon: "Hotel",
+                    locationName: "靜鐵飯店 Prezio 博多站前",
+                    imageKeyword: "Hotel Lobby",
+                    lat: 33.5875, lng: 130.4160,
+                    description: "博多口步行 7 分鐘，養精蓄銳。",
+                    details: "飯店：Shizutetsu Hotel Prezio Hakataekimae\n位置：博多站博多口步行約 7 分鐘。"
                 },
                 {
                     id: 'd1-3',
-                    time: "18:10",
-                    title: "天神「初賣」巡禮 (雨備)",
+                    time: "18:00",
+                    title: "天神商圈逛街",
                     type: "shopping",
                     icon: "ShoppingBag",
-                    locationName: "天神地下街",
-                    imageKeyword: "Tenjin Underground",
+                    locationName: "天神地下街 / PARCO",
+                    imageKeyword: "Tenjin Shopping",
                     lat: 33.5900, lng: 130.3980,
-                    description: "走地下街直通各大百貨，免淋雨。",
-                    details: "策略：因預報有雨，建議直接從飯店走到天神地下街。連通 PARCO、大丸、岩田屋，全程不用淋雨。\n重點：享受日本新年折扣熱潮。"
+                    description: "地鐵博多 -> 天神。先逛街再吃飯。",
+                    details: "移動：地鐵「博多」→「天神」(💳 JCB 卡 A)。\n策略：百貨通常 20:00 打烊，建議先逛街，聽到廣播後再下樓去餐廳。"
                 },
                 {
                     id: 'd1-4',
                     time: "20:00",
-                    title: "晚餐：元祖牛腸鍋 樂天地",
+                    title: "晚餐(首選)：炸牛排 本村",
+                    type: "food",
+                    icon: "Utensils",
+                    locationName: "牛かつ もと村 福岡PARCO店",
+                    imageKeyword: "Gyukatsu",
+                    lat: 33.5895, lng: 130.3985,
+                    description: "【機長 No.1】必去 PARCO 店 (B1F)。",
+                    details: "⚠️ 重要：一定要去 PARCO 店 (開到23:00)。\n避雷：原本的「天神西通店」當天 19:00 就關門了，跑錯會沒飯吃！\n特色：石板現煎半熟炸牛排，口感極嫩。"
+                },
+                {
+                    id: 'd1-5',
+                    time: "20:00",
+                    title: "晚餐(備案)：元祖牛腸鍋 樂天地",
                     type: "food",
                     icon: "Utensils",
                     locationName: "元祖もつ鍋 楽天地 天神西通り店",
                     imageKeyword: "Motsunabe",
                     lat: 33.5878, lng: 130.3985,
-                    description: "堆得像山的韭菜，蒜味濃郁暖胃。",
-                    details: "【主選】樂天地天神西通店\n必點：牛腸鍋 (Motsunabe) - 像山一樣高的韭菜是招牌。\n預約：強烈建議事前官網預約。\n\n【備案】博多牛腸鍋 大山 (PARCO/KITTE)\n味噌口味是一絕，若樂天地客滿可前往。"
+                    description: "【在地體驗】韭菜山老店。",
+                    details: "備案：如果炸牛排排隊超過 1 小時，可轉戰這裡。\n提醒：機長覺得口味偏鹹，請自行斟酌。"
                 },
                 {
-                    id: 'd1-5',
+                    id: 'd1-6',
                     time: "21:30",
-                    title: "春吉/中洲散策",
-                    type: "sight",
+                    title: "返回飯店",
+                    type: "transport",
                     icon: "Moon",
-                    locationName: "春吉橋",
-                    imageKeyword: "Nakasu Night View",
-                    lat: 33.5915, lng: 130.4070,
-                    description: "沿那珂川散步回飯店。",
-                    details: "活動：若雨勢不大，可沿著那珂川散步回飯店，欣賞中洲霓虹燈倒影；若雨大則直接回飯店休息。"
+                    locationName: "靜鐵飯店 Prezio 博多站前",
+                    imageKeyword: "Hotel Night",
+                    lat: 33.5875, lng: 130.4160,
+                    description: "回飯店休息，為明天早起充電。",
+                    details: "移動：地鐵「天神」→「博多」(💳 JCB 卡 A)。"
                 }
             ]
         },
@@ -137,20 +149,20 @@
             dayId: 2,
             date: "2026/01/03",
             weekday: "週六",
-            title: "震撼大佛與祭典 (禦寒模式)",
-            theme: "❄️ 氣溫驟降至 4-7°C，請穿著防風保暖衣物",
+            title: "震撼大佛、祭典與和牛點餐攻略",
+            theme: "祭典雨天照常。交通：Suica / JCB卡 A",
             locations: [
                 {
                     id: 'd2-1',
                     time: "09:00",
-                    title: "移動：天神 → 南藏院",
+                    title: "移動：博多 → 南藏院",
                     type: "transport",
                     icon: "Train",
                     locationName: "城戶南藏院前站",
-                    imageKeyword: "Japan Winter Train",
+                    imageKeyword: "Japan Local Train",
                     lat: 33.6186, lng: 130.5630,
-                    description: "地鐵轉 JR。注意山區氣溫低。",
-                    details: "1. 地鐵「天神南」→「博多」 (💳 JCB 卡 A)。\n2. JR 篠栗線「博多」→「城戶南藏院前」 (💳 SUICA/ICOCA)。\n注意：JR 篠栗線不在 JCB 活動範圍內。"
+                    description: "JR 篠栗線 (博多站第 8 月台)。",
+                    details: "路線：JR 篠栗線「博多」→「城戶南藏院前」。\n💳 支付：Suica (此路段不可用 JCB 感應)。"
                 },
                 {
                     id: 'd2-2',
@@ -161,8 +173,8 @@
                     locationName: "南藏院",
                     imageKeyword: "Nanzoin Buddha",
                     lat: 33.6200, lng: 130.5650,
-                    description: "全球最大青銅釋迦涅槃像。",
-                    details: "亮點：視覺震撼。需準備現金 300 日圓作為入場費。"
+                    description: "世界最大青銅涅槃像。",
+                    details: "亮點：視覺震撼。需準備現金 300 日圓入場費。"
                 },
                 {
                     id: 'd2-3',
@@ -171,73 +183,61 @@
                     type: "transport",
                     icon: "Train",
                     locationName: "箱崎宮前站",
-                    imageKeyword: "Fukuoka Subway Station",
+                    imageKeyword: "Subway Station",
                     lat: 33.6145, lng: 130.4225,
-                    description: "JR 轉地鐵。",
-                    details: "1. JR 回「博多」 (💳 SUICA)。\n2. 地鐵「博多」→「中洲川端」轉箱崎線→「箱崎宮前」 (💳 JCB 卡 A)。"
+                    description: "JR 回博多，轉地鐵至箱崎宮前。",
+                    details: "1. JR 回「博多」(💳 Suica)。\n2. 地鐵「博多」→「中洲川端」轉箱崎線→「箱崎宮前」(💳 JCB 卡 A)。"
                 },
                 {
                     id: 'd2-4',
                     time: "12:50",
-                    title: "午餐：祭典屋台 / 鳩太郎",
+                    title: "午餐：祭典屋台小吃",
                     type: "food",
                     icon: "Utensils",
                     locationName: "箱崎宮參道",
-                    imageKeyword: "Yatai Food Japan",
+                    imageKeyword: "Yatai Food",
                     lat: 33.6145, lng: 130.4225,
-                    description: "寒風中吃熱炒麵，或室內烏龍麵。",
-                    details: "【主選】祭典屋台：炒麵、章魚燒，體驗廟會氣氛。\n【備案】箱崎鳩太郎商店：若戶外太冷受不了，可至神社對面的古民家咖啡廳吃熱烏龍麵。"
+                    description: "寒風中吃熱炒麵、熱湯。",
+                    details: "體驗：感受祭典熱鬧氣氛。"
                 },
                 {
                     id: 'd2-5',
-                    time: "13:10",
+                    time: "13:00",
                     title: "觀賞：玉取祭 (Tamaseseri)",
                     type: "event",
                     icon: "Flag",
                     locationName: "箱崎宮",
-                    imageKeyword: "Tamaseseri",
+                    imageKeyword: "Tamaseseri Festival",
                     lat: 33.6145, lng: 130.4225,
-                    description: "九州三大祭典之一，熱血搶球。",
-                    details: "亮點：觀看壯丁們爭奪陽珠，場面熱血。建議在樓門附近卡位。"
+                    description: "搶球儀式，雨天照常舉行。",
+                    details: "備註：不用太早卡位，13:00 左右到即可。"
                 },
                 {
                     id: 'd2-6',
                     time: "15:30",
-                    title: "移動 & 參拜：櫛田神社",
+                    title: "櫛田神社 & 川端通",
                     type: "sight",
                     icon: "MapPin",
                     locationName: "櫛田神社",
                     imageKeyword: "Kushida Shrine",
                     lat: 33.5930, lng: 130.4105,
-                    description: "搭地鐵至中洲川端，參拜並吃紅豆湯。",
-                    details: "交通：地鐵至「中洲川端」 (💳 JCB 卡 A)。\n活動：參拜櫛田神社，隨後在川端通商店街吃一碗「川端善哉」(紅豆湯)。"
+                    description: "搭地鐵至中洲川端參拜。",
+                    details: "交通：地鐵至「中洲川端」(💳 JCB 卡 A)。"
                 },
                 {
                     id: 'd2-7',
                     time: "18:30",
-                    title: "晚餐：博多水炊 濱田屋",
+                    title: "晚餐：博多牛まぶし 武蔵",
                     type: "food",
                     icon: "Utensils",
-                    locationName: "博多水炊き 濱田屋 くうてん",
-                    imageKeyword: "Mizutaki",
-                    lat: 33.5898, lng: 130.4207,
-                    description: "JR博多城10樓，精緻單人御膳。",
-                    details: "移動：地鐵至「博多」 (💳 JCB 卡 A)。\n【主選】濱田屋 (JR博多城10F)：精緻單人鍋，湯頭高雅。\n【備案】博多華味鳥 (筑紫口)。"
+                    locationName: "博多牛まぶし 武蔵",
+                    imageKeyword: "Wagyu Rice",
+                    lat: 33.5890, lng: 130.4200,
+                    description: "機長激推 No.2，點餐有訣竅！",
+                    details: "【機長攻略】\n❌ 不要點 Premium (油脂太多會想吐)。\n✅ 請點「牛まぶし (赤身/瘦肉)」(約 1500-2000 円)。\n💪 餓的話可選肉增量 1.5 倍。"
                 },
                 {
                     id: 'd2-8',
-                    time: "20:30",
-                    title: "返回飯店",
-                    type: "transport",
-                    icon: "Train",
-                    locationName: "天神南",
-                    imageKeyword: "Subway Train",
-                    lat: 33.5890, lng: 130.4020,
-                    description: "地鐵七隈線：博多 -> 天神南。",
-                    details: "💳 支付：【JCB 卡 A】"
-                },
-                {
-                    id: 'd2-9',
                     time: "21:30",
                     title: "宵夜：一矢拉麵 (中洲)",
                     type: "food",
@@ -245,8 +245,8 @@
                     locationName: "麺屋 一矢",
                     imageKeyword: "Black Ramen",
                     lat: 33.5932, lng: 130.4085,
-                    description: "中洲人氣黑拉麵，步行即達。",
-                    details: "移動：從飯店步行 5-8 分鐘。\n推薦：黑拉麵 (焦香蒜油) 與 炸雞翅。"
+                    description: "主打黑拉麵，避開 Shin-Shin。",
+                    details: "避雷：機長討厭 Shin-Shin (有豬臭味)。\n推薦：黑拉麵、炸雞翅。"
                 }
             ]
         },
@@ -254,31 +254,31 @@
             dayId: 3,
             date: "2026/01/04",
             weekday: "週日",
-            title: "糸島絕景 (換卡 & 防風)",
-            theme: "💨 海邊風大請保暖。🚨 今日換【JCB 卡 B】",
+            title: "糸島海風、濃厚豚骨 & 草莓派對",
+            theme: "⚠️ 海邊極冷，戴帽子防風。New York Store 採買。",
             locations: [
                 {
                     id: 'd3-1',
-                    time: "08:10",
-                    title: "飯店出發 (請準時)",
+                    time: "08:20",
+                    title: "飯店出發",
                     type: "transport",
-                    icon: "Train",
-                    locationName: "天神南站",
-                    imageKeyword: "Subway Station",
-                    lat: 33.5890, lng: 130.4020,
-                    description: "地鐵七隈線前往博多站。",
-                    details: "路線：地鐵七隈線「天神南」→「博多」 (💳 JCB 卡 B)。\n關鍵：抵達後請預留 10-15 分鐘走到「筑紫口」。"
+                    icon: "Car",
+                    locationName: "靜鐵飯店 Prezio 博多站前",
+                    imageKeyword: "Walking Morning",
+                    lat: 33.5875, lng: 130.4160,
+                    description: "步行 10-15 分鐘至筑紫口集合。",
+                    details: "路線：穿越博多車站，前往筑紫口 Oriental Hotel 前。"
                 },
                 {
                     id: 'd3-2',
                     time: "08:50",
                     title: "集合：Klook 巴士一日遊",
-                    type: "alert",
+                    type: "bus",
                     icon: "Users",
-                    locationName: "博多站筑紫口 LAWSON",
-                    imageKeyword: "Hakata Station Chikushi",
+                    locationName: "博多站筑紫口",
+                    imageKeyword: "Tour Bus",
                     lat: 33.5905, lng: 130.4220,
-                    description: "筑紫口 Oriental Hotel 一樓 LAWSON 前。",
+                    description: "Oriental Hotel 一樓 LAWSON 前。",
                     details: "識別：尋找持有 Klook / EasyGo 旗幟的導遊。"
                 },
                 {
@@ -288,46 +288,46 @@
                     type: "bus",
                     icon: "Bus",
                     locationName: "糸島",
-                    imageKeyword: "Itoshima",
+                    imageKeyword: "Itoshima Sea",
                     lat: 33.6420, lng: 130.1980,
                     description: "夫婦岩、龍貓森林、一蘭工廠。",
-                    details: "行程：櫻井二見浦夫婦岩、龍貓森林 (芥屋大門)、一蘭之森 (午餐自理)、白絲瀑布、椰子樹鞦韆。\n注意：海邊風大，請戴帽子/穿防風外套。"
+                    details: "提醒：白絲瀑布因季節可能改點。海邊風大，務必戴帽子。"
                 },
                 {
                     id: 'd3-4',
-                    time: "18:00",
-                    title: "抵達博多站 (解散)",
-                    type: "transport",
-                    icon: "MapPin",
-                    locationName: "博多站",
-                    imageKeyword: "Hakata Station Evening",
-                    lat: 33.5900, lng: 130.4206,
-                    description: "於筑紫口附近解散。",
-                    details: "通常於博多站筑紫口附近解散。"
-                },
-                {
-                    id: 'd3-5',
                     time: "18:10",
                     title: "晚餐：博多一雙",
                     type: "food",
                     icon: "Utensils",
                     locationName: "博多一双 博多駅東本店",
-                    imageKeyword: "Tonkotsu Ramen",
+                    imageKeyword: "Hakata Ramen",
                     lat: 33.5888, lng: 130.4243,
-                    description: "「泡沫系」豚骨極致濃厚。",
-                    details: "位置：筑紫口步行 6-8 分鐘。\n【主選】博多一雙：排隊約 40-60 分鐘。必點味玉拉麵、一口餃子。\n【備案】Shin-Shin (Deitos店)：口味大眾化清甜，翻桌快。"
+                    description: "「泡沫系」豚骨拉麵，解散點附近。",
+                    details: "特色：湯頭濃郁到起泡。\n備案：若排隊太長，改至博多站內「博多麵街道」。"
+                },
+                {
+                    id: 'd3-5',
+                    time: "20:30",
+                    title: "超市採買：New York Store 住吉店",
+                    type: "shopping",
+                    icon: "ShoppingBag",
+                    locationName: "New York Store 住吉店",
+                    imageKeyword: "Strawberry Supermarket",
+                    lat: 33.5850, lng: 130.4180,
+                    description: "離飯店 8 分鐘，品質最好的超市。",
+                    details: "必買：博多甘王草莓 (認明紅圓大)、煉乳 (沾草莓神器)。"
                 },
                 {
                     id: 'd3-6',
-                    time: "20:15",
-                    title: "飯後採買 & 返回",
-                    type: "shopping",
-                    icon: "ShoppingBag",
-                    locationName: "博多站 / 天神南",
-                    imageKeyword: "Japanese Supermarket",
-                    lat: 33.5900, lng: 130.4206,
-                    description: "超市買草莓，搭地鐵回飯店。",
-                    details: "活動：博多站超市買草莓/伴手禮。\n交通：地鐵七隈線「博多」→「天神南」 (💳 JCB 卡 B)。"
+                    time: "21:10",
+                    title: "飯店享用草莓",
+                    type: "hotel",
+                    icon: "Coffee",
+                    locationName: "靜鐵飯店",
+                    imageKeyword: "Strawberry",
+                    lat: 33.5875, lng: 130.4160,
+                    description: "泡澡驅寒，享用草莓。",
+                    details: "靜鐵飯店衛浴分離，先泡熱水澡驅散海風寒氣。"
                 }
             ]
         },
@@ -335,8 +335,8 @@
             dayId: 4,
             date: "2026/01/05",
             weekday: "週一",
-            title: "市場鮮味與完美句點",
-            theme: "市場開市、胡麻鯖魚、從容離境",
+            title: "市場白草莓 & 快樂賦歸",
+            theme: "尋找白草莓、胡麻鯖魚。交通：JCB卡 B",
             locations: [
                 {
                     id: 'd4-1',
@@ -344,11 +344,11 @@
                     title: "Check-out",
                     type: "hotel",
                     icon: "Briefcase",
-                    locationName: "The BREAKFAST HOTEL 福岡天神",
+                    locationName: "靜鐵飯店",
                     imageKeyword: "Hotel Reception",
-                    lat: 33.5890, lng: 130.4020,
-                    description: "行李寄放飯店櫃檯 (回程搭地鐵最順)。",
-                    details: "策略：將行李寄放在飯店。最後去機場搭計程車不划算，回飯店拿行李搭地鐵七隈線最順。"
+                    lat: 33.5875, lng: 130.4160,
+                    description: "行李寄放飯店櫃檯。",
+                    details: "方便最後回來直接去機場。"
                 },
                 {
                     id: 'd4-2',
@@ -357,10 +357,10 @@
                     type: "sight",
                     icon: "ShoppingBag",
                     locationName: "柳橋連合市場",
-                    imageKeyword: "Fish Market Japan",
+                    imageKeyword: "White Strawberry",
                     lat: 33.5828, lng: 130.4045,
-                    description: "新年開市，推薦現炸魚板。",
-                    details: "交通：從飯店步行約 8 分鐘。\n美食：參觀初競，推薦買「高松之蒲鉾」現炸魚板。"
+                    description: "步行 12 分鐘。尋找稀有白草莓。",
+                    details: "目標：尋找「淡雪 / 珍珠白」或特大顆甘王，現場享用。"
                 },
                 {
                     id: 'd4-3',
@@ -371,8 +371,8 @@
                     locationName: "博多ごまさば屋",
                     imageKeyword: "Gomasaba Set",
                     lat: 33.5886, lng: 130.3934,
-                    description: "赤坂名店，定食 CP 值極高。",
-                    details: "交通：步行回天神南 -> 地鐵七隈線至天神 -> 轉機場線至赤坂 (💳 JCB 卡 B)。\n【主選】胡麻鯖魚屋：生魚片定食+茶泡飯吃到飽。\n【備案】黑田飯 天神店：海鮮丼平價大碗，出餐快。"
+                    description: "赤坂名店，胡麻鯖魚定食。",
+                    details: "移動：步行至渡邊通搭地鐵 → 赤坂 (💳 JCB 卡 B)。\n必吃：胡麻鯖魚定食 + 茶泡飯無限續。"
                 },
                 {
                     id: 'd4-4',
@@ -380,11 +380,11 @@
                     title: "返回飯店取行李",
                     type: "transport",
                     icon: "Briefcase",
-                    locationName: "The BREAKFAST HOTEL 福岡天神",
-                    imageKeyword: "Hotel Lobby",
-                    lat: 33.5890, lng: 130.4020,
-                    description: "地鐵赤坂 -> 天神...步行回飯店。",
-                    details: "交通：地鐵機場線「赤坂」→「天神」 (💳 JCB 卡 B)，再步行回飯店拿行李。"
+                    locationName: "靜鐵飯店",
+                    imageKeyword: "Luggage",
+                    lat: 33.5875, lng: 130.4160,
+                    description: "回飯店拿行李。",
+                    details: "準備前往機場。"
                 },
                 {
                     id: 'd4-5',
@@ -393,22 +393,22 @@
                     type: "transport",
                     icon: "Train",
                     locationName: "福岡機場 (FUK)",
-                    imageKeyword: "Fukuoka Subway Airport",
+                    imageKeyword: "Subway Train",
                     lat: 33.5859, lng: 130.4507,
-                    description: "地鐵轉接駁巴士至國際線。",
-                    details: "路線：\n1. 地鐵七隈線「天神南」→「博多」。\n2. 轉乘機場線「博多」→「福岡空港」 (💳 JCB 卡 B)。\n3. 轉乘機場免費接駁巴士至國際線航廈。\n時間：預留 45-50 分鐘交通時間。"
+                    description: "地鐵博多 -> 福岡空港。",
+                    details: "路線：地鐵「博多」→「福岡空港」(💳 JCB 卡 B)。"
                 },
                 {
                     id: 'd4-6',
                     time: "14:55",
-                    title: "抵達機場 & 免稅店",
+                    title: "機場報到 & 免稅店",
                     type: "shopping",
                     icon: "Plane",
                     locationName: "福岡機場免稅店",
-                    imageKeyword: "Airport Shop",
+                    imageKeyword: "Duty Free Shop",
                     lat: 33.5859, lng: 130.4507,
                     description: "最後採買：Menbei、博多通饅頭。",
-                    details: "航班：AK1511 (16:55 起飛)。\n必買：機場管制區外買柚子胡椒/軟管明太子(需保冷)；過安檢後買博多通饅頭、Menbei、Royce (直接免稅)。"
+                    details: "航班：AK1511 (16:55 起飛)。"
                 }
             ]
         }
@@ -510,13 +510,100 @@
         }
     ];
 
-    // --- Components ---
+    const STRAWBERRY_DATA = [
+        {
+            id: 'b1',
+            name: "博多甘王 (Hakata Amaou)",
+            jpName: "博多あまおう",
+            color: "bg-red-500",
+            textColor: "text-red-500",
+            desc: "👑 絕對王者。名字是「紅圓大好」的縮寫。碩大飽滿，濃郁艷紅，甜酸比完美。",
+            buyAt: "New York Store (Day 3)",
+            imageKeyword: "Amaou Strawberry"
+        },
+        {
+            id: 'b2',
+            name: "香野 (Kaorino)",
+            jpName: "かおり野",
+            color: "bg-pink-400",
+            textColor: "text-pink-400",
+            desc: "🌸 香氣女王。以高雅香氣著稱。酸味極低，清甜爽口，果肉稍硬脆。",
+            buyAt: "超市 (推薦怕酸的人)",
+            imageKeyword: "Kaorino Strawberry"
+        },
+        {
+            id: 'b3',
+            name: "戀Minori (Koi Minori)",
+            jpName: "恋みのり",
+            color: "bg-red-400",
+            textColor: "text-red-400",
+            desc: "💖 戀愛滋味。粉嫩淡紅色，外型圓潤。果肉紮實，味道清爽優雅。",
+            buyAt: "超市",
+            imageKeyword: "Koi Minori Strawberry"
+        },
+        {
+            id: 'b4',
+            name: "淡雪 / 珍珠白",
+            jpName: "淡雪 / パールホワイト",
+            color: "bg-gray-100",
+            textColor: "text-gray-400",
+            desc: "❄️ 奢華白草莓。淡雪是淡淡櫻花粉，似蜜桃甜；珍珠白純白聞起來有獨特甜香。",
+            buyAt: "柳橋連合市場 (Day 4)",
+            imageKeyword: "White Strawberry"
+        }
+    ];
 
-    // 1. Icon Component
+    // --- 2. Helper Components ---
+
+    // Icon Component
     const Icon = ({ name, size = 20, className }) => {
         const ref = useRef(null);
 
         useEffect(() => {
+            // Check manual map first
+            const manualIcons = {
+                // Manually define Strawberry path
+                'strawberry': [
+                    // Body - Heart shape
+                    ['path', { d: "M3 9C3 14.5 12 22 12 22C12 22 21 14.5 21 9C21 6 18.5 4 16 4C14.5 4 13 5 12 6C11 5 9.5 4 8 4C5.5 4 3 6 3 9Z", key: "body" }],
+                    // Stem / Leaves
+                    ['path', { d: "M12 2v4", key: "stem" }],
+                    ['path', { d: "M12 6l-3-3", key: "leaf1" }],
+                    ['path', { d: "M12 6l3-3", key: "leaf2" }],
+                    // Seeds (dots) - Filled circles to look like seeds
+                    ['circle', { cx: "7", cy: "10", r: "0.5", fill: "currentColor", key: "s1" }],
+                    ['circle', { cx: "12", cy: "10", r: "0.5", fill: "currentColor", key: "s2" }],
+                    ['circle', { cx: "17", cy: "10", r: "0.5", fill: "currentColor", key: "s3" }],
+                    ['circle', { cx: "9", cy: "14", r: "0.5", fill: "currentColor", key: "s4" }],
+                    ['circle', { cx: "15", cy: "14", r: "0.5", fill: "currentColor", key: "s5" }],
+                    ['circle', { cx: "12", cy: "17", r: "0.5", fill: "currentColor", key: "s6" }]
+                ]
+            };
+
+            const iconName = name.toLowerCase();
+            if (manualIcons[iconName]) {
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('width', size);
+                svg.setAttribute('height', size);
+                svg.setAttribute('viewBox', '0 0 24 24');
+                svg.setAttribute('fill', 'none');
+                svg.setAttribute('stroke', 'currentColor');
+                svg.setAttribute('stroke-width', '2');
+                svg.setAttribute('stroke-linecap', 'round');
+                svg.setAttribute('stroke-linejoin', 'round');
+                if (className) svg.setAttribute('class', className);
+
+                manualIcons[iconName].forEach(([tag, attrs]) => {
+                    const child = document.createElementNS('http://www.w3.org/2000/svg', tag);
+                    Object.entries(attrs).forEach(([k, v]) => child.setAttribute(k, v));
+                    svg.appendChild(child);
+                });
+                ref.current.innerHTML = '';
+                ref.current.appendChild(svg);
+                return;
+            }
+
+            // Fallback to lucide global
             if (!ref.current || !window.lucide) return;
             const getIconDef = (n) => {
                 const { icons } = window.lucide;
@@ -558,7 +645,7 @@
             case 'food': return 'utensils';
             case 'shopping': return 'shopping-bag';
             case 'sight': return 'camera';
-            case 'transport': return 'train-front'; // Changed default transport to train as it's major here
+            case 'transport': return 'train-front'; 
             case 'alert': return 'alert-circle';
             case 'event': return 'flag';
             case 'bus': return 'bus';
@@ -579,13 +666,145 @@
         }
     };
 
-    // 2. Map Component (Leaflet) with List below
+    // --- 3. Modals ---
+
+    const ImageModal = ({ isOpen, onClose, item }) => {
+        if (!isOpen || !item) return null;
+
+        const imgSrc = item.isLocal 
+            ? item.src 
+            : `https://loremflickr.com/800/600/${encodeURIComponent(item.imageKeyword)},travel/all`;
+
+        return (
+            <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]" onClick={onClose}>
+                <button onClick={onClose} className="absolute top-4 right-4 p-2 bg-white/20 rounded-full text-white hover:bg-white/30 transition z-50">
+                    <Icon name="x" size={24} />
+                </button>
+                <div className="relative w-full max-w-lg" onClick={e => e.stopPropagation()}>
+                    <img 
+                        src={imgSrc} 
+                        alt={item.title || item.name}
+                        className="w-full h-auto max-h-[80vh] object-contain rounded-lg shadow-2xl"
+                        onError={(e) => {
+                            if (item.isLocal) {
+                                e.target.onerror = null;
+                                e.target.src = `https://placehold.co/800x600?text=${encodeURIComponent(item.title)}`;
+                            }
+                        }}
+                    />
+                    <div className="mt-4 text-center">
+                        <h3 className="text-white text-xl font-bold tracking-wide">{item.title || item.name}</h3>
+                        {item.locationName && (
+                            <p className="text-gray-300 text-sm flex items-center justify-center gap-1 mt-1">
+                                <Icon name="map-pin" size={14} /> {item.locationName}
+                            </p>
+                        )}
+                        {item.dayTitle && (
+                            <p className="text-gray-400 text-xs mt-1 bg-white/10 inline-block px-2 py-0.5 rounded-full">{item.dayTitle}</p>
+                        )}
+                        {item.jpName && (
+                            <p className="text-gray-300 text-sm mt-1">{item.jpName}</p>
+                        )}
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    const Modal = ({ isOpen, onClose, data }) => {
+        if (!isOpen || !data) return null;
+
+        return (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose}></div>
+                <div className="bg-white rounded-2xl w-full max-w-md max-h-[80vh] overflow-y-auto z-10 animate-[fadeIn_0.2s_ease-out]">
+                    <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+                        <h3 className="font-bold text-lg text-gray-800 truncate pr-4">{data.title}</h3>
+                        <button onClick={onClose} className="p-1 bg-gray-100 rounded-full">
+                            <Icon name="x" size={20} className="text-gray-600" />
+                        </button>
+                    </div>
+                    <div className="p-5">
+                        <div className={`w-12 h-12 ${getColorClass(data.type)} rounded-full flex items-center justify-center mb-4`}>
+                            <Icon name={getIconName(data.type)} size={24} />
+                        </div>
+                        <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">詳細資訊</h4>
+                        <div className="text-gray-800 whitespace-pre-line leading-relaxed text-sm bg-gray-50 p-4 rounded-lg">
+                            {data.details}
+                        </div>
+
+                        {data.locationName && (
+                            <div className="mt-6">
+                                <a 
+                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.locationName)}`}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="flex items-center justify-center gap-2 w-full py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition"
+                                >
+                                    <Icon name="map-pin" size={18} />
+                                    開啟 Google Maps
+                                </a>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    const TipsModal = ({ isOpen, onClose }) => {
+        if (!isOpen) return null;
+        return (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose}></div>
+                <div className="bg-white rounded-2xl w-full max-w-md max-h-[80vh] overflow-y-auto z-10">
+                    <div className="p-6">
+                        <div className="flex justify-between items-center mb-4">
+                            <h2 className="text-xl font-bold text-gray-800">出發前最後檢查清單</h2>
+                            <button onClick={onClose}><Icon name="x" size={24} /></button>
+                        </div>
+                        <ul className="space-y-4 text-sm text-gray-700">
+                            <li className="flex flex-col gap-2 p-3 bg-indigo-50 rounded-lg">
+                                <div className="flex gap-2 items-center text-indigo-700 font-bold">
+                                    <span className="text-xl">💳</span>
+                                    <span>省錢支付策略 (JCB 50% 回饋)</span>
+                                </div>
+                                <div className="pl-7 text-xs text-gray-600 space-y-1">
+                                    <p>• <strong>準備兩張卡：</strong> JCB 卡 A (Day 1-2) & JCB 卡 B (Day 4)。</p>
+                                    <p>• <strong>適用範圍：</strong> 福岡市地下鐵全線 (直接感應)。</p>
+                                    <p>• <strong>例外注意：</strong> JR 篠栗線 (南藏院) 需用 Suica/ICOCA。</p>
+                                </div>
+                            </li>
+                            <li className="flex gap-3">
+                                <span className="text-xl">🥩</span>
+                                <span><strong>Day 1 晚餐：</strong>炸牛排 本村請務必去 <strong>PARCO 店</strong> (本館 B1F)，不要跑錯去西通店 (太早關)。</span>
+                            </li>
+                            <li className="flex gap-3">
+                                <span className="text-xl">🍖</span>
+                                <span><strong>Day 2 晚餐：</strong>武蔵和牛記得口訣「<strong>點赤身 (瘦肉)</strong>」，Premium 太油會膩。</span>
+                            </li>
+                            <li className="flex gap-3">
+                                <span className="text-xl">🧥</span>
+                                <span><strong>穿著提醒：</strong>Day 3 糸島海邊體感 -2°C，務必準備防風外套、帽子、手套。</span>
+                            </li>
+                            <li className="flex gap-3">
+                                <span className="text-xl">🍓</span>
+                                <span><strong>草莓吃法：</strong>從蒂頭往尖端吃，會越吃越甜！</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // --- 4. Views ---
+
     const MapView = ({ activeDay, data }) => {
         const mapRef = useRef(null);
         const mapInstanceRef = useRef(null);
         const markersRef = useRef([]);
 
-        // Derive the list of locations to show
         const locationsToShow = useMemo(() => {
             const daysToShow = activeDay === 'all' ? data : [data[activeDay]];
             const flatLocations = [];
@@ -593,7 +812,7 @@
                 day.locations.forEach((loc, lIdx) => {
                     flatLocations.push({
                         ...loc,
-                        globalIndex: flatLocations.length + 1, // Number sequentially for the list
+                        globalIndex: flatLocations.length + 1,
                         dayLabel: `Day ${day.dayId}`
                     });
                 });
@@ -609,7 +828,6 @@
                 }).addTo(mapInstanceRef.current);
             }
 
-            // Clear existing markers
             markersRef.current.forEach(marker => mapInstanceRef.current.removeLayer(marker));
             markersRef.current = [];
 
@@ -676,49 +894,9 @@
         );
     };
 
-    // 8. Image Modal Component (New)
-    const ImageModal = ({ isOpen, onClose, item }) => {
-        if (!isOpen || !item) return null;
-
-        // Use higher resolution for loremflickr if it's not a local image
-        const imgSrc = item.isLocal 
-            ? item.src 
-            : `https://loremflickr.com/800/600/${encodeURIComponent(item.imageKeyword)},travel/all`;
-
-        return (
-            <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-[fadeIn_0.2s_ease-out]" onClick={onClose}>
-                <button onClick={onClose} className="absolute top-4 right-4 p-2 bg-white/20 rounded-full text-white hover:bg-white/30 transition z-50">
-                    <Icon name="x" size={24} />
-                </button>
-                <div className="relative w-full max-w-lg" onClick={e => e.stopPropagation()}>
-                    <img 
-                        src={imgSrc} 
-                        alt={item.title}
-                        className="w-full h-auto max-h-[80vh] object-contain rounded-lg shadow-2xl"
-                        onError={(e) => {
-                            if (item.isLocal) {
-                                e.target.onerror = null;
-                                e.target.src = `https://placehold.co/800x600?text=${encodeURIComponent(item.title)}`;
-                            }
-                        }}
-                    />
-                    <div className="mt-4 text-center">
-                        <h3 className="text-white text-xl font-bold tracking-wide">{item.title}</h3>
-                        <p className="text-gray-300 text-sm flex items-center justify-center gap-1 mt-1">
-                            <Icon name="map-pin" size={14} /> {item.locationName}
-                        </p>
-                        <p className="text-gray-400 text-xs mt-1 bg-white/10 inline-block px-2 py-0.5 rounded-full">{item.dayTitle}</p>
-                    </div>
-                </div>
-            </div>
-        );
-    };
-
-    // 6. Gallery View Component
     const GalleryView = ({ data }) => {
         const [selectedItem, setSelectedItem] = useState(null);
 
-        // Static images requested
         const staticImages = [
             { 
                 id: 'custom-1', 
@@ -738,13 +916,9 @@
             }
         ];
 
-        // Flatten all locations that have image keywords
         const galleryItems = useMemo(() => {
             const items = [];
-            
-            // Add static images only when viewing 'all' days or if we want them always present
             staticImages.forEach(img => items.push(img));
-
             data.forEach(day => {
                 day.locations.forEach(loc => {
                     if (loc.imageKeyword) {
@@ -772,10 +946,9 @@
                                     loading="lazy"
                                     onError={(e) => {
                                         if (item.isLocal) {
-                                            // Fallback if local image missing
                                             e.target.onerror = null;
                                             e.target.src = `https://placehold.co/400x300?text=${encodeURIComponent(item.title)}`;
-                                            e.target.parentElement.classList.add('opacity-50'); // Dim it to show it's a placeholder
+                                            e.target.parentElement.classList.add('opacity-50'); 
                                         }
                                     }}
                                 />
@@ -792,8 +965,6 @@
                         </div>
                     ))}
                 </div>
-                
-                {/* Full Screen Modal */}
                 <ImageModal 
                     isOpen={!!selectedItem} 
                     onClose={() => setSelectedItem(null)} 
@@ -803,13 +974,10 @@
         );
     };
 
-    // 7. Souvenir View Component
     const SouvenirView = () => {
         return (
             <div className="px-1 pb-4 mt-2">
                 <h2 className="text-xl font-bold text-gray-800 mb-4 px-2">福岡伴手禮攻略</h2>
-                
-                {/* Shopping Guide Box */}
                 <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-4 mb-6">
                     <h3 className="font-bold text-indigo-700 text-sm mb-2 flex items-center gap-2">
                         <Icon name="shopping-bag" size={16} /> 購買戰略 (配合 Day 4)
@@ -825,7 +993,6 @@
                         </li>
                     </ul>
                 </div>
-
                 <div className="space-y-6">
                     {SOUVENIR_DATA.map((category, idx) => (
                         <div key={idx}>
@@ -873,8 +1040,6 @@
                         </div>
                     ))}
                 </div>
-                
-                {/* Summary List */}
                 <div className="mt-8 px-2 pb-4">
                     <h4 className="font-bold text-gray-700 text-sm mb-3">📝 快速清單</h4>
                     <div className="bg-white rounded-xl p-4 text-xs text-gray-600 space-y-2 border border-gray-100">
@@ -888,7 +1053,76 @@
         );
     };
 
-    // 3. Hero Section (Forecast + Currency)
+    const StrawberryView = () => {
+        return (
+            <div className="px-1 pb-4 mt-2">
+                <h2 className="text-xl font-bold text-red-500 mb-2 px-2 flex items-center gap-2">
+                    <Icon name="strawberry" size={24} /> 福岡草莓圖鑑
+                </h2>
+                <p className="px-2 text-sm text-gray-500 mb-6">1 月是草莓最美味的季節！必吃品種與攻略。</p>
+
+                <div className="space-y-4">
+                    {STRAWBERRY_DATA.map((berry) => (
+                        <div key={berry.id} className="bg-white rounded-xl overflow-hidden shadow-sm border border-pink-100">
+                            <div className="flex h-32">
+                                <div className="w-1/3 bg-gray-100 relative">
+                                    <img 
+                                        src={`https://loremflickr.com/300/400/${encodeURIComponent(berry.imageKeyword)},strawberry/all`}
+                                        alt={berry.name}
+                                        className="w-full h-full object-cover"
+                                        loading="lazy"
+                                    />
+                                    <div className={`absolute top-2 left-2 ${berry.color} text-white text-[10px] px-2 py-0.5 rounded-full font-bold shadow-sm`}>
+                                        必吃
+                                    </div>
+                                </div>
+                                <div className="w-2/3 p-4 flex flex-col justify-center">
+                                    <h3 className={`text-lg font-bold ${berry.textColor} mb-1`}>{berry.name}</h3>
+                                    <p className="text-xs text-gray-400 font-mono mb-2">{berry.jpName}</p>
+                                    <p className="text-xs text-gray-600 leading-relaxed mb-3">{berry.desc}</p>
+                                    <div className="flex items-center gap-1 text-[10px] text-gray-500 bg-gray-50 px-2 py-1 rounded w-fit">
+                                        <Icon name="shopping-cart" size={12} />
+                                        <span>哪裡買：{berry.buyAt}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="mt-8 bg-gradient-to-br from-red-50 to-pink-50 rounded-xl p-5 border border-pink-100">
+                    <h3 className="font-bold text-red-600 text-sm mb-3 flex items-center gap-2">
+                        <Icon name="shopping-bag" size={16} /> 採買攻略 (結合行程)
+                    </h3>
+                    <div className="space-y-4">
+                        <div className="flex gap-3">
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-200 text-red-600 flex items-center justify-center font-bold text-xs">D3</div>
+                            <div>
+                                <h4 className="font-bold text-gray-800 text-xs">晚上：New York Store 住吉店 (超市)</h4>
+                                <p className="text-xs text-gray-600 mt-1">買一盒中高等級的「博多甘王」。記得順便買「森永練乳」，淋上去超邪惡！</p>
+                            </div>
+                        </div>
+                        <div className="flex gap-3">
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-200 text-red-600 flex items-center justify-center font-bold text-xs">D4</div>
+                            <div>
+                                <h4 className="font-bold text-gray-800 text-xs">早上：柳橋連合市場</h4>
+                                <p className="text-xs text-gray-600 mt-1">尋找「淡雪(白草莓)」或特大顆單包裝甘王。水果攤通常有百貨等級貨色，適合當場吃。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-pink-200">
+                        <p className="text-xs text-red-500 flex items-center gap-2">
+                            <Icon name="lightbulb" size={14} />
+                            <strong>小秘訣：</strong>從蒂頭(葉子)開始吃，最後吃尖端。因為尖端最甜，這樣會有「越吃越甜」的感覺！
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    // --- 5. Hero Section ---
+
     const HeroSection = ({ activeDayIndex, itineraryData }) => {
         const [expanded, setExpanded] = useState(true);
         const [forecast, setForecast] = useState(null);
@@ -1052,100 +1286,10 @@
         );
     };
 
-    // 4. Modal
-    const Modal = ({ isOpen, onClose, data }) => {
-        if (!isOpen || !data) return null;
-
-        return (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose}></div>
-                <div className="bg-white rounded-2xl w-full max-w-md max-h-[80vh] overflow-y-auto z-10 animate-[fadeIn_0.2s_ease-out]">
-                    <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
-                        <h3 className="font-bold text-lg text-gray-800 truncate pr-4">{data.title}</h3>
-                        <button onClick={onClose} className="p-1 bg-gray-100 rounded-full">
-                            <Icon name="x" size={20} className="text-gray-600" />
-                        </button>
-                    </div>
-                    <div className="p-5">
-                        <div className={`w-12 h-12 ${getColorClass(data.type)} rounded-full flex items-center justify-center mb-4`}>
-                            <Icon name={getIconName(data.type)} size={24} />
-                        </div>
-                        <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">詳細資訊</h4>
-                        <div className="text-gray-800 whitespace-pre-line leading-relaxed text-sm bg-gray-50 p-4 rounded-lg">
-                            {data.details}
-                        </div>
-
-                        {data.locationName && (
-                            <div className="mt-6">
-                                <a 
-                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.locationName)}`}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="flex items-center justify-center gap-2 w-full py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition"
-                                >
-                                    <Icon name="map-pin" size={18} />
-                                    開啟 Google Maps
-                                </a>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </div>
-        );
-    };
-
-    // 5. Tips Modal
-    const TipsModal = ({ isOpen, onClose }) => {
-        if (!isOpen) return null;
-        return (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose}></div>
-                <div className="bg-white rounded-2xl w-full max-w-md max-h-[80vh] overflow-y-auto z-10">
-                    <div className="p-6">
-                        <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-xl font-bold text-gray-800">🇹🇼 台灣人遊福岡注意事項</h2>
-                            <button onClick={onClose}><Icon name="x" size={24} /></button>
-                        </div>
-                        <ul className="space-y-4 text-sm text-gray-700">
-                            <li className="flex flex-col gap-2 p-3 bg-indigo-50 rounded-lg">
-                                <div className="flex gap-2 items-center text-indigo-700 font-bold">
-                                    <span className="text-xl">💳</span>
-                                    <span>省錢支付策略 (JCB 50% 回饋)</span>
-                                </div>
-                                <div className="pl-7 text-xs text-gray-600 space-y-1">
-                                    <p>• <strong>準備兩張卡：</strong> JCB 卡 A (Day 1-2) & JCB 卡 B (Day 3-4)。每卡回饋上限 1,000 円。</p>
-                                    <p>• <strong>JCB 卡 A：</strong> 用於 Day 1 & 2 地鐵移動 (機場、南藏院轉乘、市區)。</p>
-                                    <p>• <strong>JCB 卡 B：</strong> 用於 Day 3 & 4 地鐵移動 (糸島集合、機場回程)。</p>
-                                    <p>• <strong>SUICA/ICOCA：</strong> 用於 JR 路線 (南藏院) 與 一般公車。</p>
-                                </div>
-                            </li>
-                            <li className="flex gap-3">
-                                <span className="text-xl">🚌</span>
-                                <span><strong>公車後門上車：</strong>福岡西鐵巴士多為後門上車（抽整理券或刷 IC 卡），前門下車付款。</span>
-                            </li>
-                            <li className="flex gap-3">
-                                <span className="text-xl">🚮</span>
-                                <span><strong>垃圾不落地：</strong>路邊垃圾桶極少，請自備塑膠袋將垃圾帶回飯店或便利商店丟棄。</span>
-                            </li>
-                            <li className="flex gap-3">
-                                <span className="text-xl">🗣️</span>
-                                <span><strong>說話輕聲：</strong>在電車、公車內請保持安靜，將手機設為靜音。</span>
-                            </li>
-                            <li className="flex gap-3">
-                                <span className="text-xl">🍜</span>
-                                <span><strong>屋台潛規則：</strong>每人至少點一杯飲料，沒廁所，不要久坐佔位，天氣冷要注意保暖。</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    // --- Main App Component ---
+    // --- 6. Main App Component ---
     const App = () => {
         const [activeDayIndex, setActiveDayIndex] = useState(0); // 0-3 or 'all'
-        const [viewMode, setViewMode] = useState('timeline'); // 'timeline' | 'map' | 'gallery' | 'souvenir'
+        const [viewMode, setViewMode] = useState('timeline'); // 'timeline' | 'map' | 'gallery' | 'souvenir' | 'strawberry'
         const [modalData, setModalData] = useState(null);
         const [showTips, setShowTips] = useState(false);
         const contentRef = useRef(null);
@@ -1184,7 +1328,7 @@
                             key={day.dayId}
                             onClick={() => { 
                                 setActiveDayIndex(idx); 
-                                if (viewMode === 'gallery' || viewMode === 'souvenir') {
+                                if (viewMode === 'gallery' || viewMode === 'souvenir' || viewMode === 'strawberry') {
                                     // keep current view
                                 } else {
                                     setViewMode('timeline');
@@ -1310,40 +1454,52 @@
                     {viewMode === 'souvenir' && (
                         <SouvenirView />
                     )}
+
+                    {viewMode === 'strawberry' && (
+                        <StrawberryView />
+                    )}
                 </div>
 
                 {/* Bottom Navigation */}
-                <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 flex justify-between items-center z-40 safe-area-pb shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-1 py-2 flex justify-between items-center z-40 safe-area-pb shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
                     <button 
                         onClick={() => { setViewMode('timeline'); if(activeDayIndex === 'all') setActiveDayIndex(0); }}
-                        className={`flex flex-col items-center gap-1 p-2 flex-1 rounded-xl transition ${viewMode === 'timeline' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
+                        className={`flex flex-col items-center gap-1 p-1.5 flex-1 rounded-xl transition ${viewMode === 'timeline' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
                     >
-                        <Icon name="list" size={20} />
-                        <span className="text-[10px] font-medium">行程</span>
+                        <Icon name="list" size={18} />
+                        <span className="text-[9px] font-medium">行程</span>
                     </button>
 
                     <button 
                         onClick={() => setViewMode('map')}
-                        className={`flex flex-col items-center gap-1 p-2 flex-1 rounded-xl transition ${viewMode === 'map' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
+                        className={`flex flex-col items-center gap-1 p-1.5 flex-1 rounded-xl transition ${viewMode === 'map' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
                     >
-                        <Icon name="map" size={20} />
-                        <span className="text-[10px] font-medium">地圖</span>
+                        <Icon name="map" size={18} />
+                        <span className="text-[9px] font-medium">地圖</span>
                     </button>
 
                     <button 
                         onClick={() => setViewMode('gallery')}
-                        className={`flex flex-col items-center gap-1 p-2 flex-1 rounded-xl transition ${viewMode === 'gallery' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
+                        className={`flex flex-col items-center gap-1 p-1.5 flex-1 rounded-xl transition ${viewMode === 'gallery' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
                     >
-                        <Icon name="image" size={20} />
-                        <span className="text-[10px] font-medium">插圖</span>
+                        <Icon name="image" size={18} />
+                        <span className="text-[9px] font-medium">插圖</span>
                     </button>
 
                     <button 
                         onClick={() => setViewMode('souvenir')}
-                        className={`flex flex-col items-center gap-1 p-2 flex-1 rounded-xl transition ${viewMode === 'souvenir' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
+                        className={`flex flex-col items-center gap-1 p-1.5 flex-1 rounded-xl transition ${viewMode === 'souvenir' ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:bg-gray-50'}`}
                     >
-                        <Icon name="gift" size={20} />
-                        <span className="text-[10px] font-medium">伴手禮</span>
+                        <Icon name="gift" size={18} />
+                        <span className="text-[9px] font-medium">伴手禮</span>
+                    </button>
+
+                    <button 
+                        onClick={() => setViewMode('strawberry')}
+                        className={`flex flex-col items-center gap-1 p-1.5 flex-1 rounded-xl transition ${viewMode === 'strawberry' ? 'text-pink-600 bg-pink-50' : 'text-gray-400 hover:bg-gray-50'}`}
+                    >
+                        <Icon name="strawberry" size={18} />
+                        <span className="text-[9px] font-medium">草莓</span>
                     </button>
                 </div>
 
